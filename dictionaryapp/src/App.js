@@ -1,13 +1,17 @@
 import React from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import User from './pages/User';
 import './App.css';
-import FirebaseAuth from './components/FirebaseAuth';
 
 function App() {
   return (
-    <div>
-      <h1>Dictionary Application</h1>
-      <FirebaseAuth />
-    </div>
+    <Router basename="/dictionaryapp/">
+        <h1>Dictionary Application</h1>
+        <Route exact path="/" component={Home} />
+        <Route path="/user" component={User} />
+
+    </Router>
   );
 }
 
