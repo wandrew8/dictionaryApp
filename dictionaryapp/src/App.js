@@ -1,18 +1,36 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from './components/styles/GlobalStyle';
 import Home from './pages/Home';
 import User from './pages/User';
-import './App.css';
+import SignIn from './pages/SignIn';
 
-function App() {
-  return (
-    <Router basename="/dictionaryapp/">
-        <h1>Dictionary Application</h1>
-        <Route exact path="/" component={Home} />
-        <Route path="/user" component={User} />
+class App extends React.Component {
+  state = {
+    nightMode: true
+  }
 
-    </Router>
-  );
+  toggleNightMode = () => {
+    this.setState({ nightMode: !this.state.nightMode })
+  }
+
+  render() {
+      return (
+        <Router basename="/dictionaryApp/">
+          <Switch>
+              <ThemeProvider theme={{ nightMode: this.state.nightMode }}>
+                <Route exact path="/">
+                  <Home toggleNightMode={this.toggleNightMode} nightMode={this.state.nightMode} />
+                </Route>
+                <Route path="/user" component={User} />
+                <Route path="/create-account" component={SignIn} />
+                <GlobalStyle />
+              </ThemeProvider>
+          </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
