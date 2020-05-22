@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/dictionaryApp/static/css/main.27fd15f6.chunk.css",
-    "main.js": "/dictionaryApp/static/js/main.be32e29f.chunk.js",
-    "main.js.map": "/dictionaryApp/static/js/main.be32e29f.chunk.js.map",
+    "main.js": "/dictionaryApp/static/js/main.6e11b799.chunk.js",
+    "main.js.map": "/dictionaryApp/static/js/main.6e11b799.chunk.js.map",
     "runtime-main.js": "/dictionaryApp/static/js/runtime-main.ebccf375.js",
     "runtime-main.js.map": "/dictionaryApp/static/js/runtime-main.ebccf375.js.map",
-    "static/js/2.3facd83f.chunk.js": "/dictionaryApp/static/js/2.3facd83f.chunk.js",
-    "static/js/2.3facd83f.chunk.js.map": "/dictionaryApp/static/js/2.3facd83f.chunk.js.map",
+    "static/js/2.7e7c7ef0.chunk.js": "/dictionaryApp/static/js/2.7e7c7ef0.chunk.js",
+    "static/js/2.7e7c7ef0.chunk.js.map": "/dictionaryApp/static/js/2.7e7c7ef0.chunk.js.map",
     "index.html": "/dictionaryApp/index.html",
-    "precache-manifest.3293578ca616e074f3098bc38ada144b.js": "/dictionaryApp/precache-manifest.3293578ca616e074f3098bc38ada144b.js",
+    "precache-manifest.bc1971c7606645f68469ec0ac6d4f53b.js": "/dictionaryApp/precache-manifest.bc1971c7606645f68469ec0ac6d4f53b.js",
     "service-worker.js": "/dictionaryApp/service-worker.js",
     "static/css/main.27fd15f6.chunk.css.map": "/dictionaryApp/static/css/main.27fd15f6.chunk.css.map",
-    "static/js/2.3facd83f.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.3facd83f.chunk.js.LICENSE.txt"
+    "static/js/2.7e7c7ef0.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.7e7c7ef0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ebccf375.js",
-    "static/js/2.3facd83f.chunk.js",
+    "static/js/2.7e7c7ef0.chunk.js",
     "static/css/main.27fd15f6.chunk.css",
-    "static/js/main.be32e29f.chunk.js"
+    "static/js/main.6e11b799.chunk.js"
   ]
 }
