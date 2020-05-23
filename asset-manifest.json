@@ -1,22 +1,27 @@
 {
   "files": {
     "main.css": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/dictionaryApp/static/js/main.9e46f220.chunk.js",
-    "main.js.map": "/dictionaryApp/static/js/main.9e46f220.chunk.js.map",
+    "main.js": "/dictionaryApp/static/js/main.4c95ede1.chunk.js",
+    "main.js.map": "/dictionaryApp/static/js/main.4c95ede1.chunk.js.map",
     "runtime-main.js": "/dictionaryApp/static/js/runtime-main.ebccf375.js",
     "runtime-main.js.map": "/dictionaryApp/static/js/runtime-main.ebccf375.js.map",
-    "static/js/2.b551c11a.chunk.js": "/dictionaryApp/static/js/2.b551c11a.chunk.js",
-    "static/js/2.b551c11a.chunk.js.map": "/dictionaryApp/static/js/2.b551c11a.chunk.js.map",
+    "static/js/2.eeca38f9.chunk.js": "/dictionaryApp/static/js/2.eeca38f9.chunk.js",
+    "static/js/2.eeca38f9.chunk.js.map": "/dictionaryApp/static/js/2.eeca38f9.chunk.js.map",
     "index.html": "/dictionaryApp/index.html",
-    "precache-manifest.49619b6abd816c5e962bd0797dd89ced.js": "/dictionaryApp/precache-manifest.49619b6abd816c5e962bd0797dd89ced.js",
+    "precache-manifest.8c2f6030e511cd5d0c283a99995e5afb.js": "/dictionaryApp/precache-manifest.8c2f6030e511cd5d0c283a99995e5afb.js",
     "service-worker.js": "/dictionaryApp/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.b551c11a.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.b551c11a.chunk.js.LICENSE.txt"
+    "static/js/2.eeca38f9.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.eeca38f9.chunk.js.LICENSE.txt",
+    "static/media/inn.svg": "/dictionaryApp/static/media/inn.64bd2963.svg",
+    "static/media/mataura.svg": "/dictionaryApp/static/media/mataura.4afff881.svg",
+    "static/media/mohaka.svg": "/dictionaryApp/static/media/mohaka.c27f4bb0.svg",
+    "static/media/ngaruroro.svg": "/dictionaryApp/static/media/ngaruroro.8a341e3a.svg",
+    "static/media/taieri.svg": "/dictionaryApp/static/media/taieri.cf3c80a0.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.ebccf375.js",
-    "static/js/2.b551c11a.chunk.js",
+    "static/js/2.eeca38f9.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.9e46f220.chunk.js"
+    "static/js/main.4c95ede1.chunk.js"
   ]
 }
