@@ -37,12 +37,13 @@ class App extends React.Component {
       return (
         <Router basename="/dictionaryApp/">
           <Switch>
-              <ThemeProvider theme={{ nightMode: this.state.nightMode }}>
+              <ThemeProvider theme={{ nightMode: this.state.nightMode, theme: this.state.theme }}>
                 <Route exact path="/">
                   <Home 
                     toggleNightMode={this.toggleNightMode} 
                     nightMode={this.state.nightMode}
                     toggleTheme={this.toggleTheme}
+                    theme={this.state.theme}
                      />
                 </Route>
                 <Route path="/user" component={User} />

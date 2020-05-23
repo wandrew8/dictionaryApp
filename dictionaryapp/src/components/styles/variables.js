@@ -1,12 +1,60 @@
 export const variables = {
     //Color Variables
-    primaryRed: "#F45B0F",
-    primaryYellow: "#FFD726",
-    primaryGreen: "#94C0D4",
-    primaryBlue: "#048ECB",
     primaryDark: "#161616",
     primaryLight: "#E6E6E6",
     primaryWhite: "#fdfdfe",
+
+    //Theme color varients
+    inn: {
+        primary: "#F45B0F",
+        secondary: "#FFD726",
+        tertiary: "#048ECB",
+        dark: "#161616",
+        light: "#E6E6E6", 
+        white: "#fdfdfe",
+        backgroundLight: "#E6E6E6",
+        backgroundDark: "#161616"
+    },
+    mataura: {
+        primary: "#F83C1E",
+        secondary: "#F6B800",
+        tertiary: "#2C99B0",
+        dark: "#161616",
+        light: "#E6E6E6", 
+        white: "#fdfdfe",
+        backgroundLight: "#fdfdfe",
+        backgroundDark: "#161616"
+    },
+    mohaka: {
+        primary: "#1A9E78",
+        secondary: "#F4B943",
+        tertiary: "#D55151",
+        dark: "#242C2D",
+        light: "#EADDCD", 
+        white: "#fdfdfe",
+        backgroundLight: "#fdfdfe",
+        backgroundDark: "#161616"
+    },
+    ngaruroro: {
+        primary: "#5359A6",
+        secondary: "#37ABB7", 
+        tertiary: "#C4DD76",
+        dark: "#161616",
+        light: "#E6E6E6", 
+        white: "#fdfdfe",
+        backgroundLight: "#fdfdfe",
+        backgroundDark: "#161616"
+    },
+    taieri: {
+        primary: "#44AB96",
+        secondary: "#E53855",
+        tertiary: "#4484AB",
+        dark: "#161616",
+        light: "#E6E6E6", 
+        white: "#fdfdfe",
+        backgroundLight: "#E6E6E6",
+        backgroundDark: "#161616"
+    },
 
     //Typography Variables
     primaryFont: "'Raleway', sans-serif",

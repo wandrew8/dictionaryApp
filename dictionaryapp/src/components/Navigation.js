@@ -7,7 +7,20 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const NavBar = styled.nav`
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    box-shadow: ${variables.boxShadow};
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: ${props => variables[props.theme.theme].primary};
+`;
 
+const StyledLink = styled(Link)`
+    color: ${variables.primaryWhite};
+    text-decoration: none;
 `
 
 export default class Navigation extends Component {
@@ -33,10 +46,10 @@ export default class Navigation extends Component {
 
     render() {
         return (
-            <nav>
-                <Link to="/user">User</Link>
-                <Link to="/">Home</Link>
-                <Link to="/create-account">Sign Up</Link>
+            <NavBar>
+                <StyledLink to="/user">User</StyledLink>
+                <StyledLink to="/">Home</StyledLink>
+                <StyledLink to="/create-account">Sign Up</StyledLink>
                 <FontAwesomeIcon color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} icon={faAdjust} onClick={this.props.toggleNightMode} />
                 <form>
                     <select value={this.state.themeValue} onChange={this.handleChange}>
@@ -48,7 +61,7 @@ export default class Navigation extends Component {
                         <option value="taieri">Taieri</option>
                     </select>
                 </form>
-            </nav>
+            </NavBar>
         )
     }
 }

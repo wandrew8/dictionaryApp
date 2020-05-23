@@ -14,9 +14,9 @@ html {
 }
 body {
     background-color: ${props =>
-    props.theme.nightMode === "light" ? variables.primaryDark : variables.primaryWhite };
+    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     color: ${props =>
-    props.theme.nightMode === "light" ? variables.primaryWhite : variables.primaryDark};
+    props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
     font-family: ${variables.primaryFont};
     text-align: center;
 }

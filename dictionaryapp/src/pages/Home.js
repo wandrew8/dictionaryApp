@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Navigation from '../components/Navigation';
 import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 import PropTypes from 'prop-types';
 
 
@@ -9,6 +10,7 @@ export default class Home extends Component {
         nightMode: PropTypes.string,
         toggleNightMode: PropTypes.func,
         toggleTheme: PropTypes.func,
+        theme: PropTypes.string,
     }
 
     handleSearch = (query) => {
@@ -24,6 +26,7 @@ export default class Home extends Component {
     render() {
         return (
             <div>
+            <Header />
                 <Navigation 
                     toggleNightMode={this.props.toggleNightMode} 
                     nightMode={this.props.nightMode}
@@ -32,6 +35,7 @@ export default class Home extends Component {
                 <h1>Welcome to the Dictionary App</h1>
                 <SearchBar 
                     handleSearch={this.handleSearch}
+                    theme={this.props.theme}
                 />
             </div>
         )
