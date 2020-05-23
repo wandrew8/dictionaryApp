@@ -2,17 +2,30 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './components/styles/GlobalStyle';
+import storage from 'local-storage-fallback';
 import Home from './pages/Home';
 import User from './pages/User';
 import SignIn from './pages/SignIn';
 
 class App extends React.Component {
   state = {
-    nightMode: true
+    nightMode: storage.getItem("nightMode") ? storage.getItem("nightMode") : "light"
   }
 
+
   toggleNightMode = () => {
-    this.setState({ nightMode: !this.state.nightMode })
+    if(this.state.nightMode === "light"){
+      this.setState({ nightMode: "dark" })
+      storage.setItem("nightMode", "dark");
+    } else {
+      this.setState({ nightMode: "light" });
+      storage.setItem("nightMode", "light");
+    }
+  }
+
+  getInitalTheme = () => {
+    const savedNightMode = storage.getItem("nightMode");
+    return savedNightMode ? JSON.parse(savedNightMode) : false;
   }
 
   render() {

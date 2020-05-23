@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default class Home extends Component {
     static propTypes = {
-        nightMode: PropTypes.bool,
+        nightMode: PropTypes.string,
         toggleNightMode: PropTypes.func,
     }
     render() {
