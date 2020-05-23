@@ -4,19 +4,21 @@ import styled from 'styled-components';
 import { variables } from './styles/variables';
 
 const SearchContainer = styled.div`
-    position: relative;
-    min-height: 300px;
-    min-width: 300px;
-    max-height: 400px;
-    max-width: 500px;
-    width: 90%;
-    height: 90%;
+    position: ${props => props.searched ? "absolute" : "relative"};
+    top: ${props => props.searched ? "50px" : "0px"};
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundLight : variables[props.theme.theme].backgroundDark };
-    border-radius: 1rem;
+    min-width: ${props => props.searched ? "100%" : "300px"};
+    max-width: ${props => props.searched ? "100%" : "500px"};
+    min-height: ${props => props.searched ? "50px" : "300px"};
+    max-height: ${props => props.searched ? "50px" : "300px"};
+    width: 90%;
+    height: 90%;
+    border-radius: ${props => props.searched ? "0rem" : "1rem"};;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 500ms linear;
     box-shadow: ${variables.boxShadow};
 `;
 
@@ -25,25 +27,26 @@ const Image = styled.img`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 1rem;
+    border-radius: ${props => props.searched ? "0rem" : "1rem"};;
 `;
 
 const StyledForm = styled.form`
     z-index: 10;
     display: flex;
     width: 80%;
-    min-width: 250px;
+    min-width: ${props => props.searched ? "75px" : "250px"};;
     border-radius: 1rem;
     justify-content: center;
     align-items: center;
     min-height: 200px;
     background-color: ${props =>
-    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    props.searched ? "none" : variables[props.theme.theme].white };
 `;
 
 export default class SearchBar extends Component {
     state = {
-        query: ''
+        query: '',
+        isWordSearched: false,
     }
 
     static propTypes = {
@@ -58,25 +61,31 @@ export default class SearchBar extends Component {
     submitForm = (e) => {
         e.preventDefault();
         this.props.handleSearch(this.state.query);
-        this.setState({ query: '' })
+        this.setState({ query: '', isWordSearched: true })
     }
 
     render() {
         const { theme } = this.props;
         return (
             <div style={{display: "flex", justifyContent: "center"}}>
-            <SearchContainer>
-                <Image src={require(`../images/${theme}.svg`)} alt="" />
-                <StyledForm onSubmit={this.submitForm}>
-                    <input 
-                        name="query" 
-                        type="text" 
-                        placeholder="Search for a word"
-                        value={this.state.query}
-                        onChange={this.handleInputChange}/>
-                    <button type="submit">Search</button>
-                </StyledForm>
-            </SearchContainer>
+                <SearchContainer searched={this.state.isWordSearched} >
+                    <Image 
+                        src={require(`../images/${theme}.svg`)} 
+                        alt="" 
+                        searched={this.state.isWordSearched}    
+                        />
+                    <StyledForm 
+                        searched={this.state.isWordSearched}
+                        onSubmit={this.submitForm}>
+                        <input 
+                            name="query" 
+                            type="text" 
+                            placeholder="Search for a word"
+                            value={this.state.query}
+                            onChange={this.handleInputChange}/>
+                        <button type="submit">Search</button>
+                    </StyledForm>
+                </SearchContainer>
             </div>
         )
     }
