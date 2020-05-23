@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { variables } from '../components/styles/variables';
 import styled from 'styled-components';
 import FirebaseAuth from './FirebaseAuth';
-// import image from '../images/Ngaruroro.svg';
-import image from '../images/Mohaka.svg';
-// import image from '../images/Taieri.svg';
-// import image from '../images/Mataura.svg'
+import PropTypes from 'prop-types';
 
 const ModalContainer = styled.div`
     position: fixed;
@@ -36,18 +33,23 @@ const ContentContainer = styled.div`
     border-radius: 1rem;
     position: fixed;
     background-color: ${props =>
-    props.theme.nightMode ? variables.primaryDark : variables.primaryWhite };
+    props.theme.nightMode === "light" ? variables.primaryDark : variables.primaryWhite };
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-`
+`;
 
 export default class Modal extends Component {
+    static propTypes = {
+        theme: PropTypes.string,
+    }
+    
     render() {
+        const { theme } = this.props;
         return (
             <ModalContainer>
-                <Image src={image} alt="" />
+                <Image src={require(`../images/${theme}.svg`)} alt="" />
                 <ContentContainer>
                     <div>
                         <h1>Create an Account or Log In</h1>
