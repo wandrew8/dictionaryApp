@@ -33,6 +33,7 @@ export default class Navigation extends Component {
         nightMode: PropTypes.string,
         toggleNightMode: PropTypes.func,
         toggleTheme: PropTypes.func,
+        signOut: PropTypes.func,
     }
 
     state = {
@@ -50,6 +51,7 @@ export default class Navigation extends Component {
                 <StyledLink to="/user">User</StyledLink>
                 <StyledLink to="/">Home</StyledLink>
                 <StyledLink to="/create-account">Sign Up</StyledLink>
+                <button onClick={this.props.signOut}>Sign Out</button>
                 <FontAwesomeIcon color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} icon={faAdjust} onClick={this.props.toggleNightMode} />
                 <form>
                     <select value={this.state.themeValue} onChange={this.handleChange}>
