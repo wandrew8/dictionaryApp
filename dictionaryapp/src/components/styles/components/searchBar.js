@@ -45,6 +45,7 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
     margin-right: 0.5rem;
     height: 35px;
+    font-family: ${variables.primaryFont};
     padding-left: 0.5rem;
     width: 200px;
     color: ${props => variables[props.theme.theme].dark};
