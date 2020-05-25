@@ -24,6 +24,7 @@ export default class Home extends Component {
         isLoading: false,
         isSignedIn: false,
         userInfo: '',
+        badSearch: false,
     }
 
     static propTypes = {
@@ -52,15 +53,16 @@ export default class Home extends Component {
     signout = () => {
         firebase.auth().signOut();
         this.setState({ isSignedIn: false });
+        console.log("You are successfully signed Out")
     }
 
     handleSearch = (query) => {
-        this.setState({ isLoading: true })
+        this.setState({ isLoading: true, badSearch: false })
         fetch("https://owlbot.info/api/v4/dictionary/" + query, {
         headers: {
             Authorization: `Token ${process.env.REACT_APP_OWLBOT_API}`
         }
-        }).then(res => res.json())
+        }).then(res => res.status > 400 ? this.setState({ badSearch: true, isLoading: false }) : res.json())
         .then(data => {
             console.log(data);
             this.setState({ isLoading: false, data: data.definitions, word: data.word, pronunciation: data.pronunciation });
@@ -75,7 +77,7 @@ export default class Home extends Component {
                 <Navigation 
                     toggleNightMode={this.props.toggleNightMode} 
                     nightMode={this.props.nightMode}
-                    signOut={this.signOut}
+                    signout={this.signout}
                     toggleTheme={this.props.toggleTheme}
                      />
                 <h1>Welcome to the Dictionary App</h1>
@@ -85,17 +87,19 @@ export default class Home extends Component {
                 />
                 <FlexContainer>
                     {this.state.isLoading ? <Loading /> : null}
-                    {!this.state.isLoading && this.state.data.length > 0 ? this.state.data.map((definition, i) => {
+                    {!this.state.isLoading && this.state.word ? this.state.data.map((definition, i) => {
                         return (
                             <DefinitionCard 
                                 key={i}
                                 isSignedIn={this.state.isSignedIn}
                                 def={definition}
                                 word={this.state.word}
+                                theme={this.props.theme}
                                 pronunciation={this.state.pronunciation}
                             />
                         )
                     }) : null}
+                    {this.state.badSearch ? <h3>No Results Found</h3> : null}
                 </FlexContainer>
             </div>
         )

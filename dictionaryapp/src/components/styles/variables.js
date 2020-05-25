@@ -16,9 +16,9 @@ export const variables = {
         backgroundDark: "#161616"
     },
     mataura: {
-        primary: "#F83C1E",
+        primary: "#2C99B0",
         secondary: "#F6B800",
-        tertiary: "#2C99B0",
+        tertiary: "#F83C1E",
         dark: "#161616",
         light: "#E6E6E6", 
         white: "#fdfdfe",
@@ -46,9 +46,9 @@ export const variables = {
         backgroundDark: "#161616"
     },
     taieri: {
-        primary: "#44AB96",
-        secondary: "#E53855",
-        tertiary: "#4484AB",
+        primary: "#4484AB",
+        secondary: "#44AB96",
+        tertiary: "#E53855",
         dark: "#161616",
         light: "#E6E6E6", 
         white: "#fdfdfe",

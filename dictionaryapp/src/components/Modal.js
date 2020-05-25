@@ -6,17 +6,18 @@ import PropTypes from 'prop-types';
 export default class Modal extends Component {
     static propTypes = {
         theme: PropTypes.string,
+        heading: PropTypes.string
     }
     
     render() {
-        const { theme } = this.props;
+        const { theme, heading } = this.props;
         return (
             <ModalContainer>
                 <Image src={require(`../images/${theme}.svg`)} alt="" />
                 <ContentContainer>
                     <div>
-                        <h1>Create an Account or Log In</h1>
-                        <FirebaseAuth />
+                        <h1>{heading}</h1>
+                        {this.props.children}
                     </div>
                 </ContentContainer>
             </ModalContainer>
