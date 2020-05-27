@@ -19,6 +19,7 @@ body {
     props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
     font-family: ${variables.primaryFont};
     text-align: center;
+    overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: ${variables.headingFont};

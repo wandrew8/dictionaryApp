@@ -79,6 +79,7 @@ export default class Home extends Component {
                     nightMode={this.props.nightMode}
                     signout={this.signout}
                     toggleTheme={this.props.toggleTheme}
+                    currentTheme={this.props.theme}
                      />
                 <h1>Welcome to the Dictionary App</h1>
                 <SearchBar 

@@ -29,6 +29,9 @@ const DefinitionContainer = styled.div`
     border-radius: 1rem;
     transition: 200ms ease-in-out;
     & img {
+        position: absolute;
+        top: 1.5rem;
+        right: 4.5rem;
         height: 75px;
         width: 75px;
         border-radius: 50%;
@@ -54,6 +57,9 @@ const DefinitionContainer = styled.div`
     }
     &:hover {
         box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    .cardHeading {
+        min-height: 80px;
     }
     .grid {
         display: grid;
@@ -128,19 +134,15 @@ export default class DefinitionCard extends Component {
             <React.Fragment>
                 <ReactTooltip />
                 <DefinitionContainer>
-                    <h2>{word}<sup>{type}</sup></h2>
-                    <p>{pronunciation ? `/${pronunciation}/` : ""}</p>
-                    <button data-tip="Add word to your collection" onClick={this.addToCollection}><FontAwesomeIcon icon={faBookmark} className="icon" /></button>
-                    <hr/>
-                    <div className="grid">
-                        <div className="item">
-                            <p>{definition}</p>
-                            <p className="example">{example}</p>
-                        </div>
-                        <div className="item">
-                            {image_url ? <img src={image_url} alt="word" /> : null }
-                        </div>
+                    <div className="cardHeading">
+                        <h2>{word}<sup>{type}</sup></h2>
+                        {image_url ? <img src={image_url} alt="word" /> : null }
+                        <p>{pronunciation ? `/${pronunciation}/` : ""}</p>
+                        <button data-tip="Add word to your collection" onClick={this.addToCollection}><FontAwesomeIcon icon={faBookmark} className="icon" /></button>
                     </div>
+                    <hr/>
+                    <p>{definition}</p>
+                    <p className="example">{example}</p>
                 </DefinitionContainer>
                 {this.state.showErrorModal ? 
                         <Modal heading="Please Create an Account to Add Words to Your Collection" theme={theme} >
