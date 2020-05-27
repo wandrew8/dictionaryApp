@@ -1,23 +1,44 @@
 import React, { Component } from 'react';
 import { variables } from '../components/styles/variables';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import ReactTooltip from "react-tooltip";
 import styled from 'styled-components';
 
 const SingleDefinition = styled.li`
     display: grid;
-    grid-template-columns: repeat( auto-fit, 300px minmax(300px, 1fr) );
+    position: relative;
+    grid-template-columns: repeat( auto-fit, 300px minmax(300px, 1fr) 50px );
     justify-content: center;
     grid-gap: 1rem;
-    padding: 0rem 1rem;
+    padding: 0.25rem 1rem;
     align-items: center;
     transition: 100ms ease-out;
     border-bottom: solid 1px ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
     @media only screen and (max-width: ${variables.medium}) {
         grid-template-columns: 1fr;
+        .word {
+            text-align: left;
+        }
+        .remove {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
     }
     .definition {
         text-align: left;
+    }
+    .icon {
+        color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
+        transition: 200ms ease-in-out;
+        cursor: pointer;
+        &:hover {
+                transform: scale(1.3);
+        }
     }
     h2 {
         font-size: 2.5rem;
@@ -64,23 +85,30 @@ const Container = styled.div`
 export default class CollectionContainer extends Component {
     static propTypes = {
         collection: PropTypes.array,
-        
+        removeItem: PropTypes.func,
     }
     render() {
         return (
-            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <div style={{ marginBottom: "5rem", width: "100%", display: "flex", justifyContent: "center" }}>
                 <Container>
+                    <ReactTooltip />
                     <h2>Your Word Collection</h2>
                     <ul style={{ padding: "0" }}>
                     {this.props.collection.map(word => {
                         return(
-                            <SingleDefinition key={word.word} >
+                            <SingleDefinition key={word.data().word} >
                                 <div className="word">
-                                    <h2>{word.word}<sup>{word.type}</sup></h2>
+                                    <h2>{word.data().word}<sup>{word.data().type}</sup></h2>
                                 </div>
                                 <div className="definition">
-                                    <p>{word.definition}</p>
-                                    <p className="example" >"{word.example}"</p>
+                                    <p>{word.data().definition}</p>
+                                    <p className="example" >{word.data().example && `"${word.data().example}"`}</p>
+                                </div>
+                                <div 
+                                    onClick={this.props.removeItem.bind(this, word.id)}
+                                    data-tip="Remove word from your collection" 
+                                    className="remove">
+                                    <FontAwesomeIcon className="icon" icon={faTrash} />
                                 </div>
                             </SingleDefinition>
                         )

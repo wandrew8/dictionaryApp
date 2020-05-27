@@ -170,7 +170,7 @@ export default class Navigation extends Component {
                     <NavSection>
                         <h3>Navigation</h3>
                         <hr/>
-                        <Link to="/">Home</Link>
+                        <Link to="/">Search</Link>
                         <Link to="/collection">Your Collection</Link>
                         <Link to="/create-account">Sign Up</Link>
                     </NavSection>

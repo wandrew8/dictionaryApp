@@ -49,12 +49,22 @@ export default class Collection extends Component {
         .then(snapshot => {
             const collection = []
             snapshot.docs.map(doc => {
-                collection.push(doc.data());
+                console.log(doc.id)
+                collection.push(doc);
             })
             console.log(collection)
             this.setState({ userCollection: collection, isLoading: false })
         })
         .catch(err => console.log(err))
+    }
+
+    removeItem = id => {
+        const uid = this.state.userInfo.uid;
+        db.collection('users')
+        .doc(uid)
+        .collection('wordCollection')
+        .doc(id)
+        .delete();
     }
 
     componentWillUnmount() {
@@ -97,7 +107,7 @@ export default class Collection extends Component {
                     currentTheme={this.props.theme}
                 />
                 {this.state.isLoading ? <Loading /> : <LoggedStatus isSignedIn={this.state.isSignedIn} />}
-                {!this.state.isLoading ? this.state.userCollection.length > 0 ? <CollectionContainer collection={this.state.userCollection} /> : <p>You have no words in your collection</p> : null}
+                {!this.state.isLoading ? this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p> : null}
             </React.Fragment>
         )
     }
