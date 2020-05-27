@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './components/styles/GlobalStyle';
 import storage from 'local-storage-fallback';
 import Home from './pages/Home';
-import User from './pages/User';
+import Collection from './pages/Collection';
 import SignIn from './pages/SignIn';
 
 class App extends React.Component {
@@ -46,9 +46,21 @@ class App extends React.Component {
                     theme={this.state.theme}
                      />
                 </Route>
-                <Route path="/user" component={User} />
+                <Route path="/collection">
+                  <Collection
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme}
+                    />
+                </Route>
                 <Route path="/create-account">
-                  <SignIn theme={this.state.theme} />
+                  <SignIn 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
                 </Route>
                 <GlobalStyle />
               </ThemeProvider>

@@ -10,13 +10,14 @@ export const ModalContainer = styled.div`
     max-width: 700px;
     width: 90%;
     height: 90%;
-    background-color: ${props =>
-    props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundLight : variables[props.theme.theme].backgroundDark };
+    /* background-color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundLight : variables[props.theme.theme].backgroundDark }; */
+    background-color: transparent;
     border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: ${variables.boxShadow};
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
 `;
 
 export const Image = styled.img`
@@ -37,5 +38,5 @@ export const ContentContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0rem 0.5rem;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 `;

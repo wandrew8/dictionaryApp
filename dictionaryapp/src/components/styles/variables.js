@@ -61,5 +61,11 @@ export const variables = {
     headingFont: "'Playfair Display', serif",
 
     //Other Variables
-    boxShadow: "2px 2px 5px rgba(0,0,0,0.2)"
+    boxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+
+    //Media Query Breakpoints
+    small: "575.98px", 
+    medium: "767.98px",
+    large: "991.98px",
+    desktop: "1199.98px"
 }

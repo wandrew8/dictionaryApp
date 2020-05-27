@@ -21,7 +21,7 @@ const NavBar = styled.div`
     .drawer {
         right: 0px;
         background-color: ${props =>
-        props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundDark : variables[props.theme.theme].backgroundLight };
+        props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].backgroundLight };
         position: absolute;
         top: 50px;
         width: 300px;
@@ -29,8 +29,9 @@ const NavBar = styled.div`
         border-left: 2px solid gray;
         border-bottom: solid 2px gray;
         transition: 350ms ease-in-out;
-        padding-bottom: 2rem;
-        max-height: calc(100vh - 50px);
+        padding-bottom: 5rem;
+        height: calc(100vh - 50px);
+        overflow: auto;
     }
     .open {
         transform: translateX(300px);
@@ -108,10 +109,6 @@ const NavSection = styled.nav`
 `
 
 export default class Navigation extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     static propTypes = {
         nightMode: PropTypes.string,
         toggleNightMode: PropTypes.func,
@@ -123,6 +120,21 @@ export default class Navigation extends Component {
     state = {
         themeValue: '',
         drawerOpen: false,
+    }
+
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    // This closes the navigation drawer when a user clicks outside of the drawer
+    handleClick = (e) => {
+        if(!this.node.contains(e.target)) {
+            this.setState({ drawerOpen: false });
+        }
     }
 
     setTheme = (theme) => {
@@ -140,7 +152,7 @@ export default class Navigation extends Component {
 
     render() {
         return (
-            <NavBar >
+            <NavBar ref={node => this.node = node}>
                 <FontAwesomeIcon 
                     icon={ faBars } 
                     color={ variables.primaryWhite } 
@@ -158,8 +170,8 @@ export default class Navigation extends Component {
                     <NavSection>
                         <h3>Navigation</h3>
                         <hr/>
-                        <Link to="/user">User</Link>
                         <Link to="/">Home</Link>
+                        <Link to="/collection">Your Collection</Link>
                         <Link to="/create-account">Sign Up</Link>
                     </NavSection>
                     <NavSection>
