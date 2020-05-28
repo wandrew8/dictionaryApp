@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation';
 import Header from '../components/Header';
-import Modal from '../components/Modal';
 import ActivityNavigation from '../components/ActivityNavigation';
-import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
+import Flashcard from '../components/Flashcard';
 import PropTypes from 'prop-types';
-import firebase from 'firebase/app';
-import FirebaseAuth from '../components/FirebaseAuth';
+import firebase from 'firebase';
 
 const db = firebase.firestore();
 
-export default class Collection extends Component {
+export default class Review extends Component {
     state = {
         isSignedIn: false,
         userInfo: '',
         userCollection: [],
         isLoading: true,
+        currentNumber: 0,
+        totalNumber: 0,
     }
 
     static propTypes = {
@@ -53,19 +53,9 @@ export default class Collection extends Component {
                 collection.push(doc);
             })
             console.log(collection)
-            this.setState({ userCollection: collection, isLoading: false })
+            this.setState({ userCollection: collection, isLoading: false, totalNumber: collection.length })
         })
         .catch(err => console.log(err))
-    }
-
-    removeItem = id => {
-        const uid = this.state.userInfo.uid;
-        db.collection('users')
-        .doc(uid)
-        .collection('wordCollection')
-        .doc(id)
-        .delete();
-        this.getUserCollection(uid);
     }
 
     componentWillUnmount() {
@@ -80,21 +70,32 @@ export default class Collection extends Component {
         console.log("You are successfully signed Out")
     }
 
-    render() {
-        const LoggedStatus = (props) => {
-            if(props.isSignedIn) {
-                return (
-                    <h1>{this.state.userInfo.displayName}'s Collection</h1>
-                )
-            } else {
-                return (
-                   <Modal heading="You are not logged in" theme={this.state.currentTheme}>
-                       <p>Sign up or log in to create your own word collection</p>
-                       <FirebaseAuth />
-                   </Modal>
-                )
-            }
+    moveNext = () => {
+        console.log("you click the next arrow")
+        if(this.state.currentNumber + 1 !== this.state.totalNumber) {
+            this.setState({ currentNumber: this.state.currentNumber + 1 });
+        } else {
+            this.setState({ currentNumber: 0 })
         }
+    }
+
+    movePrev = () => {
+        if(this.state.currentNumber === 0) {
+            this.setState({ currentNumber: this.state.totalNumber - 1 });
+        } else {
+            this.setState({ currentNumber: this.state.currentNumber - 1 })
+        }
+    }
+
+    moveLast = () => {
+        this.setState({ currentNumber: this.state.totalNumber - 1 });
+    }
+
+    moveFirst = () => {
+        this.setState({ currentNumber: 0 })
+    }
+
+    render() {
         return (
             <React.Fragment>
                 <Header />
@@ -106,8 +107,15 @@ export default class Collection extends Component {
                     currentTheme={this.props.theme}
                 />
                 <ActivityNavigation />
-                {this.state.isLoading ? <Loading /> : <LoggedStatus isSignedIn={this.state.isSignedIn} />}
-                {!this.state.isLoading ? this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p> : null}
+                {this.state.isLoading ? <Loading /> : <Flashcard
+                    moveFirst={this.moveFirst}
+                    moveLast={this.moveLast}
+                    movePrev={this.movePrev}
+                    moveNext={this.moveNext} 
+                    currentNumber={this.state.currentNumber}
+                    totalNumber={this.state.totalNumber}
+                    word={this.state.userCollection[this.state.currentNumber].data().word} 
+                    definition={this.state.userCollection[this.state.currentNumber].data().definition} id={this.state.userCollection[0].id} />}
             </React.Fragment>
         )
     }
