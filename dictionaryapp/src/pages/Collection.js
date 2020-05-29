@@ -17,6 +17,8 @@ export default class Collection extends Component {
         userInfo: '',
         userCollection: [],
         isLoading: true,
+        isShowing: true,
+        showModal: true,
     }
 
     static propTypes = {
@@ -32,7 +34,8 @@ export default class Collection extends Component {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
                 //Redirects to home page if not logged in 
                 if(!user){
-                    this.setState({ isSignedIn: false })
+                    console.log("user not logged in")
+                    this.setState({ isSignedIn: false, isLoading: false, showModal: true })
                     // this.props.history.push('/');
                 } else {
                     this.getUserCollection(this.state.userInfo.uid)
@@ -74,6 +77,10 @@ export default class Collection extends Component {
         }
     }
 
+    closeModal = () => {
+        this.setState({ showModal: false })
+    }
+
     signout = () => {
         firebase.auth().signOut();
         this.setState({ isSignedIn: false });
@@ -81,34 +88,60 @@ export default class Collection extends Component {
     }
 
     render() {
-        const LoggedStatus = (props) => {
-            if(props.isSignedIn) {
+        if (this.state.isLoading) {
+            return (
+                <React.Fragment>
+                    <Header />
+                    <Navigation 
+                        toggleNightMode={this.props.toggleNightMode} 
+                        nightMode={this.props.nightMode}
+                        signout={this.signout}
+                        toggleTheme={this.props.toggleTheme}
+                        currentTheme={this.props.theme}
+                    />
+                    <ActivityNavigation />
+                    <Loading />
+                </React.Fragment>
+            )
+        } else {
+            if (this.state.isSignedIn) {
                 return (
-                    <h1>{this.state.userInfo.displayName}'s Collection</h1>
-                )
-            } else {
-                return (
-                   <Modal heading="You are not logged in" theme={this.state.currentTheme}>
-                       <p>Sign up or log in to create your own word collection</p>
-                       <FirebaseAuth />
-                   </Modal>
-                )
-            }
+                    <React.Fragment>
+                    <Header />
+                    <Navigation 
+                        toggleNightMode={this.props.toggleNightMode} 
+                        nightMode={this.props.nightMode}
+                        signout={this.signout}
+                        toggleTheme={this.props.toggleTheme}
+                        currentTheme={this.props.theme}
+                    />
+                    <ActivityNavigation />
+                    {this.state.isLoading ? <Loading /> : null }
+                    {this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p>}
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <React.Fragment>
+                    <Header />
+                    <Navigation 
+                        toggleNightMode={this.props.toggleNightMode} 
+                        nightMode={this.props.nightMode}
+                        signout={this.signout}
+                        toggleTheme={this.props.toggleTheme}
+                        currentTheme={this.props.theme}
+                    />
+                    <ActivityNavigation/>
+                    <Modal heading="Please create an account" showModal={this.state.showModal} closeModal={this.closeModal}>
+                        <p>You must have an account in order to create a word collection</p>
+                        <FirebaseAuth />
+                    </Modal>
+                </React.Fragment>
+            )
+
         }
-        return (
-            <React.Fragment>
-                <Header />
-                <Navigation 
-                    toggleNightMode={this.props.toggleNightMode} 
-                    nightMode={this.props.nightMode}
-                    signout={this.signout}
-                    toggleTheme={this.props.toggleTheme}
-                    currentTheme={this.props.theme}
-                />
-                <ActivityNavigation />
-                {this.state.isLoading ? <Loading /> : <LoggedStatus isSignedIn={this.state.isSignedIn} />}
-                {!this.state.isLoading ? this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p> : null}
-            </React.Fragment>
-        )
+        
+
+        }
     }
 }

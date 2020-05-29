@@ -8,6 +8,7 @@ export default class ActivityNavigation extends Component {
         return (
             <div>
                 <ReactTooltip />
+                <Link to="/collection" data-tip="View the words in your collection">Collection</Link>
                 <Link to="/review" data-tip="Review the words from your collection as interactive flashcards" >Review</Link>
                 <Link to="/test" data-tip="Test your skills by taking a vocabulary test with the words from your collection" >Test</Link>
             </div>

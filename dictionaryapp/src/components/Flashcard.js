@@ -11,9 +11,9 @@ const Container = styled.div`
     margin-bottom: 5rem;
 `;
 const FlashCard = styled.div`
-    max-height: 400px;
-    height: 400px;
-    max-width: 500px;
+    max-height: 450px;
+    height: 450px;
+    max-width: 600px;
     width: 100vw;
     perspective: 9000px;
     padding: 2rem;
@@ -24,6 +24,7 @@ const FlashCard = styled.div`
     text-align: center;
     h1 {
         color: black;
+        font-size: 2.5rem;
     }
     .content {
         display: flex;
@@ -64,6 +65,9 @@ const FlashCard = styled.div`
     .rotate{
         transform: rotateX(180deg);
     }
+    .definition {
+        font-size: 1.5rem;
+    }
 `;
 
 export default class Flashcard extends React.Component {
@@ -102,10 +106,10 @@ export default class Flashcard extends React.Component {
                     <FlashCard onClick={this.flipCard} >
                         <div className={this.state.showBack ? "content rotate" : "content"}>
                             <div className="front">
-                            {this.state.showWordFirst ? <h1>{word}</h1> : <p>{definition}</p>}
+                            {this.state.showWordFirst ? <h1>{word}</h1> : <p className="definition">{definition}</p>}
                             </div>
                             <div className="back">
-                            {this.state.showWordFirst ? <p>{definition}</p> : <h1>{word}</h1>}
+                            {this.state.showWordFirst ? <p className="definition">{definition}</p> : <h1>{word}</h1>}
                             </div>
                         </div>
                     </FlashCard>

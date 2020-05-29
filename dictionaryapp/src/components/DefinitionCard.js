@@ -121,9 +121,10 @@ export default class DefinitionCard extends Component {
                         dateAdded: new Date()
                     })
                 console.log("You have successfully added the word " + word + " to your collection!")
-                this.setState({ showErrorModal: true })
         } else {
             console.log("You must be logged in to add a word to your collection")
+            this.setState({ showErrorModal: true })
+
         }
 
     }
