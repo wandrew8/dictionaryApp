@@ -99,6 +99,8 @@ class Collection extends Component {
                         signout={this.signout}
                         toggleTheme={this.props.toggleTheme}
                         currentTheme={this.props.theme}
+                        isSignedIn={this.state.isSignedIn}
+                        userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
                     <ActivityNavigation />
                     <Loading />
@@ -115,6 +117,8 @@ class Collection extends Component {
                             signout={this.signout}
                             toggleTheme={this.props.toggleTheme}
                             currentTheme={this.props.theme}
+                            isSignedIn={this.state.isSignedIn}
+                            userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                         />
                         <ActivityNavigation />
                         {this.state.isLoading ? <Loading /> : null }
@@ -131,6 +135,8 @@ class Collection extends Component {
                         signout={this.signout}
                         toggleTheme={this.props.toggleTheme}
                         currentTheme={this.props.theme}
+                        isSignedIn={this.state.isSignedIn}
+                        userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
                     <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
                         <p>You must have an account in order to create a word collection</p>

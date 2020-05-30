@@ -17,15 +17,7 @@ export default class SignIn extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header />
-                <Navigation 
-                    toggleNightMode={this.props.toggleNightMode} 
-                    nightMode={this.props.nightMode}
-                    signout={this.signout}
-                    toggleTheme={this.props.toggleTheme}
-                    currentTheme={this.props.theme}
-                />
-                <Modal theme={this.props.theme} heading="Create an Account or Log In" >
+                <Modal showModal={true} showClose={false} heading="Create an Account or Log In" >
                     <FirebaseAuth />
                 </Modal>
             </React.Fragment>

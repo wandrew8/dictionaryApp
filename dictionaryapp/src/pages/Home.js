@@ -38,6 +38,7 @@ class Home extends Component {
     componentDidMount() {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
+                console.log(user)
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
                 if(!user){
                     this.setState({ isSignedIn: false });
@@ -81,6 +82,8 @@ class Home extends Component {
                     signout={this.signout}
                     toggleTheme={this.props.toggleTheme}
                     currentTheme={this.props.theme}
+                    isSignedIn={this.state.isSignedIn}
+                    userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                      />
                 <h1>Welcome to the Dictionary App</h1>
                 <SearchBar 

@@ -31,10 +31,8 @@ class Review extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
-                //Redirects to home page if not logged in 
                 if(!user){
                     this.setState({ isSignedIn: false })
-                    // this.props.history.push('/');
                 } else {
                     this.getUserCollection(this.state.userInfo.uid)
                 }
@@ -106,6 +104,8 @@ class Review extends Component {
                     signout={this.signout}
                     toggleTheme={this.props.toggleTheme}
                     currentTheme={this.props.theme}
+                    isSignedIn={this.state.isSignedIn}
+                    userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                 />
                 <ActivityNavigation />
                 {this.state.isLoading ? <Loading /> : <Flashcard

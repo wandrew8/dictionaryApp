@@ -37,11 +37,8 @@ class Test extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
-                //Redirects to home page if not logged in 
                 if(!user){
-                    console.log("user not logged in")
                     this.setState({ isSignedIn: false, isLoading: false, showModal: true })
-                    // this.props.history.push('/');
                 } else {
                     this.getUserCollection(this.state.userInfo.uid)
                 }
@@ -78,6 +75,8 @@ class Test extends Component {
                         signout={this.signout}
                         toggleTheme={this.props.toggleTheme}
                         currentTheme={this.props.theme}
+                        isSignedIn={this.state.isSignedIn}
+                        userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
                     <ActivityNavigation />
                     <Loading />
@@ -94,6 +93,8 @@ class Test extends Component {
                             signout={this.signout}
                             toggleTheme={this.props.toggleTheme}
                             currentTheme={this.props.theme}
+                            isSignedIn={this.state.isSignedIn}
+                            userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                         />
                         <ActivityNavigation />
                         {this.state.isLoading ? <Loading /> : null }
@@ -113,6 +114,8 @@ class Test extends Component {
                         signout={this.signout}
                         toggleTheme={this.props.toggleTheme}
                         currentTheme={this.props.theme}
+                        isSignedIn={this.state.isSignedIn}
+                        userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
                     <ActivityNavigation/>
                     <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>

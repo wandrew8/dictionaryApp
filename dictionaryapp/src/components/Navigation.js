@@ -44,6 +44,9 @@ const NavBar = styled.div`
         padding: 0;
         margin: 0;
     }
+    .icon {
+        cursor: pointer;
+    }
     li {
         list-style: none;
         width: 100%;
@@ -55,6 +58,21 @@ const NavBar = styled.div`
             background: lightgray;
         }
     }
+    .avatar img {
+        height: 35px;
+        width: 35px;
+        margin-right: 1rem;
+        box-shadow: 0px 0px 2px rgba(0,0,0,0.8);
+        border-radius: 50%;
+    }
+`;
+
+const LoggedIn = styled.div`
+    padding: 0rem 2rem 0rem 1rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `;
 
 const NavSection = styled.nav`
@@ -106,6 +124,7 @@ const NavSection = styled.nav`
             background: lightgray;
         }
     }
+   
 `
 
 export default class Navigation extends Component {
@@ -114,7 +133,9 @@ export default class Navigation extends Component {
         toggleNightMode: PropTypes.func,
         toggleTheme: PropTypes.func,
         signout: PropTypes.func,
-        currentTheme: PropTypes.string
+        currentTheme: PropTypes.string,
+        isSignedIn: PropTypes.bool,
+        userImage: PropTypes.string,
     }
 
     state = {
@@ -153,26 +174,32 @@ export default class Navigation extends Component {
     render() {
         return (
             <NavBar ref={node => this.node = node}>
+                <div className="avatar">
+                    {this.props.isSignedIn && this.props.userImage ? <img src={this.props.userImage} alt={`${this.props.userName}' avatar`} /> : null}
+                </div>
                 <FontAwesomeIcon 
                     icon={ faBars } 
                     color={ variables.primaryWhite } 
+                    className="icon"
                     onClick={this.toggleDrawer} />
                 <div 
                     className={this.state.drawerOpen ? "drawer" : "open drawer"}>
-                    <NavSection>
+                    <LoggedIn>
                         <FontAwesomeIcon 
                             onClick={this.closeDrawer} 
+                            className="icon"
                             style={{ margin: "1rem", fontSize: "1.5rem" }} 
                             icon={ faArrowRight } 
                             color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} />
-                    </NavSection>
+                            <p>{this.props.isSignedIn ? "You are logged in" : "You are not logged in"}</p>
+                    </LoggedIn>
                     <hr/>
                     <NavSection>
                         <h3>Navigation</h3>
                         <hr/>
                         <Link to="/">Search</Link>
                         <Link to="/collection">Your Collection</Link>
-                        <Link to="/create-account">Sign Up</Link>
+                        <Link to="/create-account">Sign in / Create Account</Link>
                     </NavSection>
                     <NavSection>
                         <h3>Account and Settings</h3>
