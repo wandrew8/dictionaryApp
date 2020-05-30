@@ -5,11 +5,12 @@ import ActivityNavigation from '../components/ActivityNavigation';
 import Loading from '../components/Loading';
 import Flashcard from '../components/Flashcard';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import firebase from 'firebase';
 
 const db = firebase.firestore();
 
-export default class Review extends Component {
+class Review extends Component {
     state = {
         isSignedIn: false,
         userInfo: '',
@@ -67,7 +68,7 @@ export default class Review extends Component {
     signout = () => {
         firebase.auth().signOut();
         this.setState({ isSignedIn: false });
-        console.log("You are successfully signed Out")
+        this.props.history.push("/");
     }
 
     moveNext = () => {
@@ -120,3 +121,5 @@ export default class Review extends Component {
         )
     }
 }
+
+export default withRouter(Review);

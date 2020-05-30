@@ -5,6 +5,7 @@ import GlobalStyle from './components/styles/GlobalStyle';
 import storage from 'local-storage-fallback';
 import Home from './pages/Home';
 import Review from './pages/Review';
+import Test from './pages/Test';
 import Collection from './pages/Collection';
 import SignIn from './pages/SignIn';
 
@@ -65,6 +66,14 @@ class App extends React.Component {
                 </Route>
                 <Route path="/review">
                   <Review 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
+                </Route>
+                <Route path="/test">
+                  <Test 
                     toggleNightMode={this.toggleNightMode} 
                     nightMode={this.state.nightMode}
                     toggleTheme={this.toggleTheme}

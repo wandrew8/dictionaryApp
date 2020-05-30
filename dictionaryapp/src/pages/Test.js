@@ -12,14 +12,12 @@ import FirebaseAuth from '../components/FirebaseAuth';
 
 const db = firebase.firestore();
 
-class Collection extends Component {
+class Test extends Component {
     state = {
         isSignedIn: false,
+        isLoading: true,
         userInfo: '',
         userCollection: [],
-        isLoading: true,
-        isShowing: true,
-        showModal: true,
     }
 
     static propTypes = {
@@ -27,6 +25,12 @@ class Collection extends Component {
         toggleNightMode: PropTypes.func,
         toggleTheme: PropTypes.func,
         theme: PropTypes.string
+    }
+
+    signout = () => {
+        firebase.auth().signOut();
+        this.setState({ isSignedIn: false });
+        this.props.history.push("/");
     }
 
     componentDidMount() {
@@ -62,31 +66,6 @@ class Collection extends Component {
         .catch(err => console.log(err))
     }
 
-    removeItem = id => {
-        const uid = this.state.userInfo.uid;
-        db.collection('users')
-        .doc(uid)
-        .collection('wordCollection')
-        .doc(id)
-        .delete();
-        this.getUserCollection(uid);
-    }
-
-    componentWillUnmount() {
-        if(this.unregisterAuthObserver){
-            this.unregisterAuthObserver();
-        }
-    }
-
-    closeModal = () => {
-        this.setState({ showModal: false })
-    }
-
-    signout = () => {
-        firebase.auth().signOut();
-        this.setState({ isSignedIn: false });
-        this.props.history.push("/");
-    }
 
     render() {
         if (this.state.isLoading) {
@@ -118,7 +97,10 @@ class Collection extends Component {
                         />
                         <ActivityNavigation />
                         {this.state.isLoading ? <Loading /> : null }
-                        {this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p>}
+                        {this.state.userCollection.length < 5 
+                                ? <Modal heading="Oh No!" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
+                                <p>You must have at least 5 words in your collection</p>
+                                </Modal> : null }
                     </React.Fragment>
             )
         } else {
@@ -132,19 +114,18 @@ class Collection extends Component {
                         toggleTheme={this.props.toggleTheme}
                         currentTheme={this.props.theme}
                     />
+                    <ActivityNavigation/>
                     <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
-                        <p>You must have an account in order to create a word collection</p>
+                        <p>You must first create an account and add words to your collection</p>
                         <FirebaseAuth />
                     </Modal>
                 </React.Fragment>
             )
 
         }
-        
-
+    
         }
     }
 }
 
-export default withRouter(Collection);
-
+export default withRouter(Test);

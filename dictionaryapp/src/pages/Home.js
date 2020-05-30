@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import DefinitionCard from '../components/DefinitionCard';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
 const FlexContainer = styled.div`
@@ -16,7 +17,7 @@ const FlexContainer = styled.div`
     align-items: center;
 `;
 
-export default class Home extends Component {
+class Home extends Component {
     state = {
         data: [],
         word: '',
@@ -53,7 +54,7 @@ export default class Home extends Component {
     signout = () => {
         firebase.auth().signOut();
         this.setState({ isSignedIn: false });
-        console.log("You are successfully signed Out")
+        this.props.history.push("/");
     }
 
     handleSearch = (query) => {
@@ -106,3 +107,5 @@ export default class Home extends Component {
         )
     }
 }
+
+export default withRouter(Home);

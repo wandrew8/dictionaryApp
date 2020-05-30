@@ -8,17 +8,18 @@ class Modal extends React.Component{
     static propTypes = {
         heading: PropTypes.string,
         showModal: PropTypes.bool,
-        closeModal: PropTypes.func
+        closeModal: PropTypes.func,
+        showClose: PropTypes.bool,
     }
 
     render() {
-        const { showModal, heading, closeModal, show } = this.props;
+        const { showModal, heading, closeModal, showClose } = this.props;
         if (showModal) {
             return(
                 <ModalContainer>
                 <ContentContainer>
                     <div>
-                        <FontAwesomeIcon className="icon" data-dismiss="modal" aria-label="Close" icon={faTimesCircle} onClick={closeModal} />
+                        {showClose ? <FontAwesomeIcon className="icon" data-dismiss="modal" aria-label="Close" icon={faTimesCircle} onClick={closeModal} /> : null }
                         <h1>{heading}</h1>
                         {this.props.children}
                     </div>
