@@ -12,6 +12,21 @@ const Input = styled.div`
     }
 `;
 
+const CongratulationsContainer = styled.div`
+    width: 90%;
+    max-width: 700px;
+    min-width: 300px;
+    text-align: left;
+    padding: 4rem 3rem;
+    border-radius: 2rem;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    background-color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
+`;
+
 const StyledForm = styled.form`
     width: 90%;
     max-width: 700px;
@@ -36,12 +51,12 @@ const StyledForm = styled.form`
     }
     input {
         border: none;
-        transition: 200ms ease-in-out;
+        transition: 150ms ease-in-out;
         border-bottom: solid 2px ${props =>
         props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
         :focus {
             outline: none;
-            border-bottom: solid 2px yellow;
+            transform: scale(1.05);
         }
     }
     span {
@@ -61,29 +76,69 @@ const Container = styled.div`
 
 export default class FormComponent extends Component {
     state = {
-
+        answers: [],
+        formSubmitted: false,
+        totalScore: 0,
     }
     static propTypes = {
         userCollection: PropTypes.array,
     }
 
+    handleChange = (e, index) => {
+        const answers = [...this.state.answers];
+        answers[index] = e.target.value;
+        this.setState({ answers })
+    }
+
+    checkAnswers = (e) => {
+        e.preventDefault();
+        const answersArray = []
+        this.props.userCollection.map(individualWord => {
+            const { word } = individualWord.data();
+            answersArray.push(word)
+        });
+        let totalCorrect = 0;
+        answersArray.forEach((word, i) => {
+            if(word === this.state.answers[i]){
+                totalCorrect++;
+            }
+        })
+        this.setState({ answers: [], totalScore: totalCorrect, formSubmitted: true });
+    }
+
+    resetTest = () => {
+        this.setState({ formSubmitted: false, totalScore: 0 })
+    }
+
     render() {
-        return (
-            <Container>
-                <StyledForm>
-                    <h2>Vocabulary Test</h2>
-                    {this.props.userCollection.map((individualWord, index) => {
-                        const {word, definition,type } = individualWord.data();
-                        return (
-                            <Input key={word}>
-                                <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
-                                <input id={word} type="text" name={word} />
-                            </Input>
-                        )
-                    })}
-                    <button>Submit</button>
-                </StyledForm>
-            </Container>
-        )
+        if (this.state.formSubmitted) {
+            return (
+                <Container>
+                    <CongratulationsContainer>
+                        <h1>Congratulations!</h1>
+                        <p>Your Scored is: {this.state.totalScore} out of {this.props.userCollection.length}</p>
+                        <button onClick={this.resetTest}>Try Again!</button>
+                    </CongratulationsContainer>
+                </Container>
+            )
+        } else {
+            return (
+                <Container>
+                    <StyledForm onSubmit={this.checkAnswers}>
+                        <h2>Vocabulary Test</h2>
+                        {this.props.userCollection.map((individualWord, index) => {
+                            const {word, definition,type } = individualWord.data();
+                            return (
+                                <Input key={word}>
+                                    <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
+                                    <input id={word} type="text" data-id={index} onChange={(e) => this.handleChange(e, index)} value={this.state.answers[index] || ''} name={word} className="guess"/>
+                                </Input>
+                                 )
+                        })}
+                        <button>Submit</button>
+                    </StyledForm>
+                </Container>
+            )
+        }
     }
 }
