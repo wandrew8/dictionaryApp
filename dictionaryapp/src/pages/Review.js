@@ -108,7 +108,8 @@ class Review extends Component {
                     userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                 />
                 <ActivityNavigation />
-                {this.state.isLoading ? <Loading /> : <Flashcard
+                {this.state.isLoading ? <Loading /> : null}
+                {!this.state.isLoading && this.state.userCollection.length > 0 ? <Flashcard
                     moveFirst={this.moveFirst}
                     moveLast={this.moveLast}
                     movePrev={this.movePrev}
@@ -116,7 +117,8 @@ class Review extends Component {
                     currentNumber={this.state.currentNumber}
                     totalNumber={this.state.totalNumber}
                     word={this.state.userCollection[this.state.currentNumber].data().word} 
-                    definition={this.state.userCollection[this.state.currentNumber].data().definition} id={this.state.userCollection[0].id} />}
+                    definition={this.state.userCollection[this.state.currentNumber].data().definition} id={this.state.userCollection[0].id} /> : null }
+                {!this.state.isLoading && this.state.userCollection.length === 0 ? <p>You have no words in your collection to review</p> : null}
             </React.Fragment>
         )
     }

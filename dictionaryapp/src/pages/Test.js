@@ -100,12 +100,11 @@ class Test extends Component {
                         <ActivityNavigation />
                         {this.state.isLoading ? <Loading /> : null }
                         {this.state.userCollection.length < 5 
-                                ? <Modal heading="Oh No!" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
-                                <p>You must have at least 5 words in your collection</p>
-                                </Modal> : <FormComponent userCollection={this.state.userCollection} /> }
+                                ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.userCollection.length} {this.state.userCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent userCollection={this.state.userCollection} /> }
                     </React.Fragment>
             )
-        } else {
+            
+            } else {
             return (
                 <React.Fragment>
                     <Header />
