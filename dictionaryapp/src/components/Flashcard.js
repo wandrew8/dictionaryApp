@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FlashcardControls from './FlashcardControls';
 import PropTypes from 'prop-types';
+import { variables } from '../components/styles/variables';
 
 const Container = styled.div`
     width: 100%;
@@ -23,7 +24,6 @@ const FlashCard = styled.div`
     border-radius: 5px;
     text-align: center;
     h1 {
-        color: black;
         font-size: 2.5rem;
     }
     .content {
@@ -53,13 +53,17 @@ const FlashCard = styled.div`
         -webkit-backface-visibility: hidden; /* Safari */
     }
     .front {
-        background: #fff;
-        color: #444;
+        background-color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+        color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
     }
 
     .back {
-        background: #fff;
-        color: #444;
+        background-color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+        color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
         transform: rotateX(180deg);
     }
     .rotate{

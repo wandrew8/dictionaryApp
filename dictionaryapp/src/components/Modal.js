@@ -17,14 +17,14 @@ class Modal extends React.Component{
         if (showModal) {
             return(
                 <ModalContainer>
-                <ContentContainer>
-                    <div>
-                        {showClose ? <FontAwesomeIcon className="icon" data-dismiss="modal" aria-label="Close" icon={faTimesCircle} onClick={closeModal} /> : null }
-                        <h1>{heading}</h1>
-                        {this.props.children}
-                    </div>
-                </ContentContainer>
-            </ModalContainer>
+                    <ContentContainer>
+                        <div>
+                            {showClose ? <FontAwesomeIcon className="icon" data-dismiss="modal" aria-label="Close" icon={faTimesCircle} onClick={closeModal} /> : null }
+                            <h1>{heading}</h1>
+                            {this.props.children}
+                        </div>
+                    </ContentContainer>
+                </ModalContainer>
             )
         }
     }

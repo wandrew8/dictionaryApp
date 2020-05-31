@@ -10,15 +10,13 @@ export const ModalContainer = styled.div`
     max-width: 700px;
     width: 90%;
     height: 90%;
-    background-color: ${props =>
-    props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundLight : variables[props.theme.theme].backgroundDark };
     border-radius: 1rem;
     border: ${props => 
     props.theme.nightMode === "light" ? `solid 2px ${variables[props.theme.theme].backgroundDark}` : `solid 2px ${variables[props.theme.theme].backgroundLight}` };
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
     z-index: 10;
     .icon {
         position: absolute;
@@ -48,6 +46,6 @@ export const ContentContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0rem 0.5rem;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
     z-index: 10;
 `;

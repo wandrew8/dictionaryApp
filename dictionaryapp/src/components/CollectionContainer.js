@@ -78,7 +78,10 @@ const Container = styled.div`
     border: solid 1px ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
     border-radius: 1rem;
-    
+    h2 {
+        margin-bottom: 1.5rem;
+
+    }
 `;
 
 

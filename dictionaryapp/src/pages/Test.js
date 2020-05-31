@@ -6,6 +6,7 @@ import ActivityNavigation from '../components/ActivityNavigation';
 import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
+import FormComponent from '../components/FormComponent';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
 import FirebaseAuth from '../components/FirebaseAuth';
@@ -101,7 +102,7 @@ class Test extends Component {
                         {this.state.userCollection.length < 5 
                                 ? <Modal heading="Oh No!" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
                                 <p>You must have at least 5 words in your collection</p>
-                                </Modal> : null }
+                                </Modal> : <FormComponent userCollection={this.state.userCollection} /> }
                     </React.Fragment>
             )
         } else {
