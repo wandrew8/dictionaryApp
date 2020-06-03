@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ThemeItem from './ThemeItem';
+import Logo from '../components/Logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdjust, faBars, faArrowRight, faSignOutAlt, faPalette } from '@fortawesome/free-solid-svg-icons'
 import { variables } from '../components/styles/variables';
@@ -14,10 +15,15 @@ const NavBar = styled.div`
     height: 50px;
     box-shadow: ${variables.boxShadow};
     display: flex;
-    justify-content: flex-end;
-    padding: 0rem 3rem;
+    justify-content: space-between;
+    padding: 0rem 3rem 0rem 0rem;
     align-items: center;
     background: ${props => variables[props.theme.theme].primary};
+    .flexItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .drawer {
         right: 0px;
         background-color: ${props =>
@@ -65,6 +71,32 @@ const NavBar = styled.div`
         box-shadow: 0px 0px 2px rgba(0,0,0,0.8);
         border-radius: 50%;
     }
+    .link {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: ${props => variables[props.theme.theme].white};
+        margin: 0rem 1rem;
+        transition: 200ms linear;
+        padding-bottom: 0.25rem;
+        &:hover {
+            border-bottom: 5px solid rgba(0, 0,0,0.1);
+
+        }
+    }
+    .navLinks {
+        margin: 0rem 2rem;
+        
+    }
+    @media only screen and (max-width: ${variables.medium}) {
+        .navLinks {
+            display: none;
+        }
+    }
+    @media only screen and (max-width: ${variables.small}) {
+        justify-content: flex-end;
+        
+    }
+    
 `;
 
 const LoggedIn = styled.div`
@@ -77,7 +109,7 @@ const LoggedIn = styled.div`
 
 const NavSection = styled.nav`
     text-align: left;
-    padding: 0rem 1rem;
+    padding: 0rem 1rem 0rem 0rem;
     .signOut {
         display: block;
         padding: 0.5rem;
@@ -174,104 +206,130 @@ export default class Navigation extends Component {
     render() {
         return (
             <NavBar ref={node => this.node = node}>
-                <div className="avatar">
-                    {this.props.isSignedIn && this.props.userImage ? <img src={this.props.userImage} alt={`${this.props.userName}' avatar`} /> : null}
-                </div>
-                <FontAwesomeIcon 
-                    icon={ faBars } 
-                    color={ variables.primaryWhite } 
-                    className="icon"
-                    onClick={this.toggleDrawer} />
-                <div 
-                    className={this.state.drawerOpen ? "drawer" : "open drawer"}>
-                    <LoggedIn>
-                        <FontAwesomeIcon 
-                            onClick={this.closeDrawer} 
-                            className="icon"
-                            style={{ margin: "1rem", fontSize: "1.5rem" }} 
-                            icon={ faArrowRight } 
-                            color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} />
-                            <p>{this.props.isSignedIn ? "You are logged in" : "You are not logged in"}</p>
-                    </LoggedIn>
-                    <hr/>
-                    <NavSection>
-                        <h3>Navigation</h3>
-                        <hr/>
-                        <Link to="/">Search</Link>
-                        <Link to="/collection">Your Collection</Link>
-                        <Link to="/create-account">Sign in / Create Account</Link>
-                    </NavSection>
-                    <NavSection>
-                        <h3>Account and Settings</h3>
-                        <hr/>
-                        <button 
-                            onClick={this.props.signout} 
-                            className="signOut"><FontAwesomeIcon color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} icon={faSignOutAlt}/> Sign Out</button>
-                        <p 
-                            className="navItem"
-                            onClick={this.props.toggleNightMode}>
+                <Logo theme={this.props.currentTheme} />
+                <div className="flexItem">
+                    <div className="navLinks">
+                        <NavLink 
+                            className="link"
+                            activeStyle={{ borderBottom: "5px solid rgba(0, 0,0,0.1)" }}
+                            exact
+                            to="/">
+                            Search
+                        </NavLink>
+                        <NavLink 
+                            className="link"
+                            activeStyle={{ borderBottom: "5px solid rgba(0, 0,0,0.1)" }} 
+                            exact
+                            to="/collection">
+                            Your Collection
+                        </NavLink>
+                        {this.props.isSignedIn ? null : <NavLink 
+                            className="link"
+                            activeStyle={{ borderBottom: "5px solid rgba(0, 0,0,0.1)" }}
+                            exact
+                            to="/create-account">
+                            Create Account
+                        </NavLink>}
+                    </div>
+                    <div className="avatar">
+                        {this.props.isSignedIn && this.props.userImage ? <img src={this.props.userImage} alt={`${this.props.userName}' avatar`} /> : null}
+                    </div>
+                    <FontAwesomeIcon 
+                        icon={ faBars } 
+                        color={ variables.primaryWhite } 
+                        className="icon"
+                        onClick={this.toggleDrawer} />
+                    <div 
+                        className={this.state.drawerOpen ? "drawer" : "open drawer"}>
+                        <LoggedIn>
                             <FontAwesomeIcon 
-                                color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} 
-                                icon={faAdjust}/> {this.props.nightMode === "light" ? "Dark" : "Light"} Mode
-                        </p>
-                        <p>
-                            <FontAwesomeIcon 
-                                color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} 
-                                icon={faPalette} /> Themes
-                        </p>
-                        <ul>
-                            <li 
-                                className={this.props.currentTheme === "mohaka" ? "selected" : null}
-                                onClick={this.setTheme.bind(this, "mohaka")}>
+                                onClick={this.closeDrawer} 
+                                className="icon"
+                                style={{ margin: "1rem", fontSize: "1.5rem" }} 
+                                icon={ faArrowRight } 
+                                color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} />
+                                <p>{this.props.isSignedIn ? "You are logged in" : "You are not logged in"}</p>
+                        </LoggedIn>
+                        <hr/>
+                        <NavSection>
+                            <h3>Navigation</h3>
+                            <hr/>
+                            <Link to="/">Search</Link>
+                            <Link to="/collection">Your Collection</Link>
+                            <Link to="/create-account">Sign in / Create Account</Link>
+                        </NavSection>
+                        <NavSection>
+                            <h3>Account and Settings</h3>
+                            <hr/>
+                            <button 
+                                onClick={this.props.signout} 
+                                className="signOut"><FontAwesomeIcon color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} icon={faSignOutAlt}/> Sign Out</button>
+                            <p 
+                                className="navItem"
+                                onClick={this.props.toggleNightMode}>
+                                <FontAwesomeIcon 
+                                    color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} 
+                                    icon={faAdjust}/> {this.props.nightMode === "light" ? "Dark" : "Light"} Mode
+                            </p>
+                            <p>
+                                <FontAwesomeIcon 
+                                    color={this.props.nightMode === "light" ? variables.primaryWhite : variables.primaryDark} 
+                                    icon={faPalette} /> Themes
+                            </p>
+                            <ul>
+                                <li 
+                                    className={this.props.currentTheme === "mohaka" ? "selected" : null}
+                                    onClick={this.setTheme.bind(this, "mohaka")}>
+                                    <ThemeItem 
+                                        name="Mohaka" 
+                                        primary={variables.mohaka.primary}
+                                        secondary={variables.mohaka.secondary}
+                                        tertiary={variables.mohaka.tertiary}
+                                    />        
+                                </li>
+                                <li 
+                                    className={this.props.currentTheme === "inn" ? "selected" : null}
+                                    onClick={this.setTheme.bind(this, "inn")}>
                                 <ThemeItem 
-                                    name="Mohaka" 
-                                    primary={variables.mohaka.primary}
-                                    secondary={variables.mohaka.secondary}
-                                    tertiary={variables.mohaka.tertiary}
-                                />        
-                            </li>
-                            <li 
-                                className={this.props.currentTheme === "inn" ? "selected" : null}
-                                onClick={this.setTheme.bind(this, "inn")}>
-                            <ThemeItem 
-                                    name="Inn" 
-                                    primary={variables.inn.primary}
-                                    secondary={variables.inn.secondary}
-                                    tertiary={variables.inn.tertiary}
-                                />  
-                            </li>
-                            <li 
-                                className={this.props.currentTheme === "mataura" ? "selected" : null}
-                                onClick={this.setTheme.bind(this, "mataura")}>
-                                <ThemeItem 
-                                    name="Mataura" 
-                                    primary={variables.mataura.primary}
-                                    secondary={variables.mataura.secondary}
-                                    tertiary={variables.mataura.tertiary}
-                                />  
-                            </li>
-                            <li 
-                                className={this.props.currentTheme === "ngaruroro" ? "selected" : null}
-                                onClick={this.setTheme.bind(this, "ngaruroro")}>
-                                <ThemeItem 
-                                    name="Ngaruroro" 
-                                    primary={variables.ngaruroro.primary}
-                                    secondary={variables.ngaruroro.secondary}
-                                    tertiary={variables.ngaruroro.tertiary}
-                                />  
-                            </li>
-                            <li 
-                                className={this.props.currentTheme === "taieri" ? "selected" : null}
-                                onClick={this.setTheme.bind(this, "taieri")}>
-                                <ThemeItem 
-                                    name="Taieri" 
-                                    primary={variables.taieri.primary}
-                                    secondary={variables.taieri.secondary}
-                                    tertiary={variables.taieri.tertiary}
-                                />  
-                            </li>
-                        </ul>
-                    </NavSection>
+                                        name="Inn" 
+                                        primary={variables.inn.primary}
+                                        secondary={variables.inn.secondary}
+                                        tertiary={variables.inn.tertiary}
+                                    />  
+                                </li>
+                                <li 
+                                    className={this.props.currentTheme === "mataura" ? "selected" : null}
+                                    onClick={this.setTheme.bind(this, "mataura")}>
+                                    <ThemeItem 
+                                        name="Mataura" 
+                                        primary={variables.mataura.primary}
+                                        secondary={variables.mataura.secondary}
+                                        tertiary={variables.mataura.tertiary}
+                                    />  
+                                </li>
+                                <li 
+                                    className={this.props.currentTheme === "ngaruroro" ? "selected" : null}
+                                    onClick={this.setTheme.bind(this, "ngaruroro")}>
+                                    <ThemeItem 
+                                        name="Ngaruroro" 
+                                        primary={variables.ngaruroro.primary}
+                                        secondary={variables.ngaruroro.secondary}
+                                        tertiary={variables.ngaruroro.tertiary}
+                                    />  
+                                </li>
+                                <li 
+                                    className={this.props.currentTheme === "taieri" ? "selected" : null}
+                                    onClick={this.setTheme.bind(this, "taieri")}>
+                                    <ThemeItem 
+                                        name="Taieri" 
+                                        primary={variables.taieri.primary}
+                                        secondary={variables.taieri.secondary}
+                                        tertiary={variables.taieri.tertiary}
+                                    />  
+                                </li>
+                            </ul>
+                        </NavSection>
+                    </div>
                 </div>
             </NavBar>
         )
