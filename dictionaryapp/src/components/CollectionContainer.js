@@ -89,6 +89,7 @@ export default class CollectionContainer extends Component {
     static propTypes = {
         collection: PropTypes.array,
         removeItem: PropTypes.func,
+        showRemove: PropTypes.bool
     }
     render() {
         return (
@@ -107,12 +108,12 @@ export default class CollectionContainer extends Component {
                                     <p>{word.data().definition}</p>
                                     <p className="example" >{word.data().example && `"${word.data().example}"`}</p>
                                 </div>
-                                <div 
+                                {this.props.showRemove ? <div 
                                     onClick={this.props.removeItem.bind(this, word.id)}
                                     data-tip="Remove word from your collection" 
                                     className="remove">
                                     <FontAwesomeIcon className="icon" icon={faTrash} />
-                                </div>
+                                </div> : null }
                             </SingleDefinition>
                         )
                     })}

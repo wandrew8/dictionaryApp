@@ -5,7 +5,11 @@ import GlobalStyle from './components/styles/GlobalStyle';
 import storage from 'local-storage-fallback';
 import Home from './pages/Home';
 import Review from './pages/Review';
+import WordCollection from './pages/WordCollection';
 import Test from './pages/Test';
+import PracticeTest from './pages/PracticeTest';
+import PracticeFlashCards from './pages/PracticeFlashCards';
+import Practice from './pages/Practice';
 import Collection from './pages/Collection';
 import SignIn from './pages/SignIn';
 
@@ -74,6 +78,38 @@ class App extends React.Component {
                 </Route>
                 <Route path="/test">
                   <Test 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
+                </Route>
+                <Route exact path="/practice">
+                  <Practice 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
+                </Route>
+                <Route exact path="/practice/:id">
+                  <WordCollection 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
+                </Route>
+                <Route exact path="/practice-test/:id">
+                  <PracticeTest 
+                    toggleNightMode={this.toggleNightMode} 
+                    nightMode={this.state.nightMode}
+                    toggleTheme={this.toggleTheme}
+                    theme={this.state.theme} 
+                    />
+                </Route>
+                <Route exact path="/practice-review/:id">
+                  <PracticeFlashCards 
                     toggleNightMode={this.toggleNightMode} 
                     nightMode={this.state.nightMode}
                     toggleTheme={this.toggleTheme}

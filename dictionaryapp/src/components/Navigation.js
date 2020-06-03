@@ -87,7 +87,7 @@ const NavBar = styled.div`
         margin: 0rem 2rem;
         
     }
-    @media only screen and (max-width: ${variables.medium}) {
+    @media only screen and (max-width: ${variables.large}) {
         .navLinks {
             display: none;
         }
@@ -223,6 +223,13 @@ export default class Navigation extends Component {
                             to="/collection">
                             Your Collection
                         </NavLink>
+                        <NavLink 
+                            className="link"
+                            activeStyle={{ borderBottom: "5px solid rgba(0, 0,0,0.1)" }} 
+                            exact
+                            to="/practice">
+                            Practice
+                        </NavLink>
                         {this.props.isSignedIn ? null : <NavLink 
                             className="link"
                             activeStyle={{ borderBottom: "5px solid rgba(0, 0,0,0.1)" }}
@@ -256,7 +263,8 @@ export default class Navigation extends Component {
                             <hr/>
                             <Link to="/">Search</Link>
                             <Link to="/collection">Your Collection</Link>
-                            <Link to="/create-account">Sign in / Create Account</Link>
+                            <Link to="/practice">Practice</Link>
+                            {this.props.isSignedIn ? null : <Link to="/create-account">Sign in / Create Account</Link>}
                         </NavSection>
                         <NavSection>
                             <h3>Account and Settings</h3>

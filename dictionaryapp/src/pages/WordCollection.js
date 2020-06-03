@@ -6,19 +6,20 @@ import ActivityNavigation from '../components/ActivityNavigation';
 import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
-import FormComponent from '../components/FormComponent';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
 import FirebaseAuth from '../components/FirebaseAuth';
 
 const db = firebase.firestore();
 
-class Test extends Component {
+class WordCollection extends Component {
     state = {
         isSignedIn: false,
-        isLoading: true,
         userInfo: '',
-        userCollection: [],
+        wordCollection: [],
+        isLoading: true,
+        isShowing: true,
+        showModal: true,
     }
 
     static propTypes = {
@@ -28,29 +29,26 @@ class Test extends Component {
         theme: PropTypes.string
     }
 
-    signout = () => {
-        firebase.auth().signOut();
-        this.setState({ isSignedIn: false });
-        this.props.history.push("/");
-    }
-
     componentDidMount() {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
+                //Redirects to home page if not logged in 
                 if(!user){
+                    console.log("user not logged in")
                     this.setState({ isSignedIn: false, isLoading: false, showModal: true })
+                    // this.props.history.push('/');
                 } else {
-                    this.getUserCollection(this.state.userInfo.uid)
+                    this.getWordsFromCollection();
                 }
             });
     }
 
-    getUserCollection = uid => {
-        console.log(uid)
-        db.collection('users')
-        .doc(uid)
-        .collection('wordCollection')
+    getWordsFromCollection = () => {
+        const id = this.props.match.params.id
+        db.collection('wordSet')
+        .doc(id)
+        .collection('words')
         .get()
         .then(snapshot => {
             const collection = []
@@ -59,13 +57,29 @@ class Test extends Component {
                 collection.push(doc);
             })
             console.log(collection)
-            this.setState({ userCollection: collection, isLoading: false })
+            this.setState({ wordCollection: collection, isLoading: false })
         })
         .catch(err => console.log(err))
     }
 
+    componentWillUnmount() {
+        if(this.unregisterAuthObserver){
+            this.unregisterAuthObserver();
+        }
+    }
+
+    closeModal = () => {
+        this.setState({ showModal: false })
+    }
+
+    signout = () => {
+        firebase.auth().signOut();
+        this.setState({ isSignedIn: false });
+        this.props.history.push("/");
+    }
 
     render() {
+        const id = this.props.match.params.id
         if (this.state.isLoading) {
             return (
                 <React.Fragment>
@@ -79,32 +93,11 @@ class Test extends Component {
                         isSignedIn={this.state.isSignedIn}
                         userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
-                    <ActivityNavigation practice={false} />
+                    <ActivityNavigation practice={true} id={id} />
                     <Loading />
                 </React.Fragment>
             )
         } else {
-            if (this.state.isSignedIn) {
-                return (
-                    <React.Fragment>
-                        <Header />
-                        <Navigation 
-                            toggleNightMode={this.props.toggleNightMode} 
-                            nightMode={this.props.nightMode}
-                            signout={this.signout}
-                            toggleTheme={this.props.toggleTheme}
-                            currentTheme={this.props.theme}
-                            isSignedIn={this.state.isSignedIn}
-                            userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
-                        />
-                        <ActivityNavigation practice={false} />
-                        {this.state.isLoading ? <Loading /> : null }
-                        {this.state.userCollection.length < 5 
-                                ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.userCollection.length} {this.state.userCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent userCollection={this.state.userCollection} /> }
-                    </React.Fragment>
-            )
-            
-            } else {
             return (
                 <React.Fragment>
                     <Header />
@@ -117,18 +110,14 @@ class Test extends Component {
                         isSignedIn={this.state.isSignedIn}
                         userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
-                    <ActivityNavigation practice={false} />
-                    <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
-                        <p>You must first create an account and add words to your collection</p>
-                        <FirebaseAuth />
-                    </Modal>
+                    <ActivityNavigation practice={true} id={id}/>
+                    {this.state.isLoading ? <Loading /> : null }
+                    {this.state.wordCollection.length > 0 ? <CollectionContainer showRemove={false} collection={this.state.wordCollection} /> : <p>You have no words in your collection</p>}
                 </React.Fragment>
             )
-
-        }
-    
-        }
+        } 
     }
 }
 
-export default withRouter(Test);
+export default withRouter(WordCollection);
+

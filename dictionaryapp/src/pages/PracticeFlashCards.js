@@ -14,7 +14,7 @@ class Review extends Component {
     state = {
         isSignedIn: false,
         userInfo: '',
-        userCollection: [],
+        wordCollection: [],
         isLoading: true,
         currentNumber: 0,
         totalNumber: 0,
@@ -34,16 +34,16 @@ class Review extends Component {
                 if(!user){
                     this.setState({ isSignedIn: false })
                 } else {
-                    this.getUserCollection(this.state.userInfo.uid)
+                    this.getWordsFromCollection();
                 }
             });
     }
 
-    getUserCollection = uid => {
-        console.log(uid)
-        db.collection('users')
-        .doc(uid)
-        .collection('wordCollection')
+    getWordsFromCollection = () => {
+        const id = this.props.match.params.id
+        db.collection('wordSet')
+        .doc(id)
+        .collection('words')
         .get()
         .then(snapshot => {
             const collection = []
@@ -52,7 +52,7 @@ class Review extends Component {
                 collection.push(doc);
             })
             console.log(collection)
-            this.setState({ userCollection: collection, isLoading: false, totalNumber: collection.length })
+            this.setState({ wordCollection: collection, isLoading: false, totalNumber: collection.length })
         })
         .catch(err => console.log(err))
     }
@@ -95,6 +95,7 @@ class Review extends Component {
     }
 
     render() {
+        const id = this.props.match.params.id
         return (
             <React.Fragment>
                 <Header />
@@ -107,18 +108,18 @@ class Review extends Component {
                     isSignedIn={this.state.isSignedIn}
                     userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                 />
-                <ActivityNavigation practice={false}/>
+                <ActivityNavigation practice={true} id={id} />
                 {this.state.isLoading ? <Loading /> : null}
-                {!this.state.isLoading && this.state.userCollection.length > 0 ? <Flashcard
+                {!this.state.isLoading && this.state.wordCollection.length > 0 ? <Flashcard
                     moveFirst={this.moveFirst}
                     moveLast={this.moveLast}
                     movePrev={this.movePrev}
                     moveNext={this.moveNext} 
                     currentNumber={this.state.currentNumber}
                     totalNumber={this.state.totalNumber}
-                    word={this.state.userCollection[this.state.currentNumber].data().word} 
-                    definition={this.state.userCollection[this.state.currentNumber].data().definition} id={this.state.userCollection[0].id} /> : null }
-                {!this.state.isLoading && this.state.userCollection.length === 0 ? <p>You have no words in your collection to review</p> : null}
+                    word={this.state.wordCollection[this.state.currentNumber].data().word} 
+                    definition={this.state.wordCollection[this.state.currentNumber].data().definition} id={this.state.wordCollection[0].id} /> : null }
+                {!this.state.isLoading && this.state.wordCollection.length === 0 ? <p>You have no words in your collection to review</p> : null}
             </React.Fragment>
         )
     }

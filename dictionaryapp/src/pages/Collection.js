@@ -102,7 +102,7 @@ class Collection extends Component {
                         isSignedIn={this.state.isSignedIn}
                         userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
-                    <ActivityNavigation />
+                    <ActivityNavigation practice={false} />
                     <Loading />
                 </React.Fragment>
             )
@@ -120,9 +120,9 @@ class Collection extends Component {
                             isSignedIn={this.state.isSignedIn}
                             userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                         />
-                        <ActivityNavigation />
+                        <ActivityNavigation practice={false}/>
                         {this.state.isLoading ? <Loading /> : null }
-                        {this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} collection={this.state.userCollection} /> : <p>You have no words in your collection</p>}
+                        {this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} showRemove={true} collection={this.state.userCollection} /> : <p>You have no words in your collection</p>}
                     </React.Fragment>
             )
         } else {
