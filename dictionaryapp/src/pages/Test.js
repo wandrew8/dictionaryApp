@@ -3,7 +3,6 @@ import Navigation from '../components/Navigation';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
 import ActivityNavigation from '../components/ActivityNavigation';
-import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import FormComponent from '../components/FormComponent';
@@ -100,7 +99,7 @@ class Test extends Component {
                         <ActivityNavigation practice={false} />
                         {this.state.isLoading ? <Loading /> : null }
                         {this.state.userCollection.length < 5 
-                                ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.userCollection.length} {this.state.userCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent userCollection={this.state.userCollection} /> }
+                                ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.userCollection.length} {this.state.userCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent wordCollection={this.state.userCollection} /> }
                     </React.Fragment>
             )
             

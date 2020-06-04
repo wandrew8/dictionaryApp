@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import DefinitionCard from '../components/DefinitionCard';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
+import WordOfDay from '../components/WordOfDay';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
@@ -22,10 +23,11 @@ class Home extends Component {
         data: [],
         word: '',
         pronunciation: '',
-        isLoading: false,
+        isLoading: true,
         isSignedIn: false,
         userInfo: '',
         badSearch: false,
+        wordOfTheDay: {}
     }
 
     static propTypes = {
@@ -44,6 +46,7 @@ class Home extends Component {
                     this.setState({ isSignedIn: false });
                 }
             });
+        this.getWordOfTheDay();
     }
 
     componentWillUnmount() {
@@ -70,6 +73,26 @@ class Home extends Component {
             this.setState({ isLoading: false, data: data.definitions, word: data.word, pronunciation: data.pronunciation });
         })
         .catch(err => console.log(err))
+    }
+
+    getWordOfTheDay = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const todayDate = `${year}-${month}-${day}`
+        console.log(todayDate)
+        fetch(`https://api.wordnik.com/v4/words.json/wordOfTheDay?date=${todayDate}&api_key=${process.env.REACT_APP_WORDNIK_API}`, {
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            this.setState({ wordOfTheDay: data, isLoading: false })
+        })
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -106,6 +129,7 @@ class Home extends Component {
                     }) : null}
                     {this.state.badSearch ? <h3>No Results Found</h3> : null}
                 </FlexContainer>
+                {this.state.isLoading ? <Loading /> : <WordOfDay word={this.state.wordOfTheDay} />}
             </div>
         )
     }

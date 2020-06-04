@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation';
 import Header from '../components/Header';
-import Modal from '../components/Modal';
 import WordSetCard from '../components/WordSetCard';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
-import FirebaseAuth from '../components/FirebaseAuth';
+import styled from 'styled-components';
+import { variables } from '../components/styles/variables';
+
+const Container = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    justify-content: center;
+    grid-gap: 1.5rem;
+    margin: 2rem 3rem;
+    @media only screen and (max-width: ${variables.small}) {
+        margin: 2rem 0.5rem;
+    }
+`;
 
 const db = firebase.firestore();
 
@@ -35,8 +46,9 @@ class Practice extends Component {
                 //Redirects to home page if not logged in 
                 if(!user){
                     console.log("user not logged in")
-                    this.setState({ isSignedIn: false, isLoading: false, showModal: true })
-                    // this.props.history.push('/');
+                    this.setState({ isSignedIn: false })
+                    this.getWordSets();
+
                 } else {
                     this.getWordSets();
                 }
@@ -91,24 +103,6 @@ class Practice extends Component {
                 </React.Fragment>
             )
         } else {
-            if (this.state.isSignedIn) {
-                return (
-                    <React.Fragment>
-                        <Header />
-                        <Navigation 
-                            toggleNightMode={this.props.toggleNightMode} 
-                            nightMode={this.props.nightMode}
-                            signout={this.signout}
-                            toggleTheme={this.props.toggleTheme}
-                            currentTheme={this.props.theme}
-                            isSignedIn={this.state.isSignedIn}
-                            userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
-                        />
-                        {this.state.isLoading ? <Loading /> : null }
-                        {this.state.wordSets.length > 0 ? this.state.wordSets.map(set => <WordSetCard key={set.id} wordSet={set.data()} id={set.id} />) : <p>You have no words in your collection</p>}
-                    </React.Fragment>
-            )
-        } else {
             return (
                 <React.Fragment>
                     <Header />
@@ -121,16 +115,12 @@ class Practice extends Component {
                         isSignedIn={this.state.isSignedIn}
                         userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
-                    <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
-                        <p>You must have an account in order to create a word collection</p>
-                        <FirebaseAuth />
-                    </Modal>
+                    {this.state.isLoading ? <Loading /> : null }
+                    <Container>
+                    {this.state.isLoading ? null : this.state.wordSets.length > 0 ? this.state.wordSets.map(set => <WordSetCard key={set.id} wordSet={set.data()} id={set.id} />) : <p>Oh no! We couldn't find any word sets to practice</p>}
+                    </Container>
                 </React.Fragment>
             )
-
-        }
-        
-
         }
     }
 }

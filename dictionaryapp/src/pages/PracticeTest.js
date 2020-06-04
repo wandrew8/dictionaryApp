@@ -83,27 +83,6 @@ class Test extends Component {
                 </React.Fragment>
             )
         } else {
-            if (this.state.isSignedIn) {
-                return (
-                    <React.Fragment>
-                        <Header />
-                        <Navigation 
-                            toggleNightMode={this.props.toggleNightMode} 
-                            nightMode={this.props.nightMode}
-                            signout={this.signout}
-                            toggleTheme={this.props.toggleTheme}
-                            currentTheme={this.props.theme}
-                            isSignedIn={this.state.isSignedIn}
-                            userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
-                        />
-                        <ActivityNavigation practice={true} id={id} />
-                        {this.state.isLoading ? <Loading /> : null }
-                        {this.state.wordCollection.length < 5 
-                                ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.wordCollection.length} {this.state.wordCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent wordCollection={this.state.wordCollection} /> }
-                    </React.Fragment>
-            )
-            
-            } else {
             return (
                 <React.Fragment>
                     <Header />
@@ -117,15 +96,11 @@ class Test extends Component {
                         userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                     />
                     <ActivityNavigation practice={true} id={id} />
-                    <Modal heading="Please Create an Account" showClose={false} showModal={this.state.showModal} closeModal={this.closeModal}>
-                        <p>You must first create an account and add words to your collection</p>
-                        <FirebaseAuth />
-                    </Modal>
+                    {this.state.isLoading ? <Loading /> : null }
+                    {this.state.wordCollection.length < 5 
+                            ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.wordCollection.length} {this.state.wordCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent wordCollection={this.state.wordCollection} /> }
                 </React.Fragment>
             )
-
-        }
-    
         }
     }
 }

@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Loading from './Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import ReactTooltip from "react-tooltip";
 import { variables } from '../components/styles/variables';
-import firebase from 'firebase/app';
-import { ContentContainer } from './styles/components/modal';
 
 const Input = styled.div`
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr 25px;
+    position: relative;
     input {
         display: block;
+    }
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: lightgray;
     }
 `;
 
@@ -79,9 +89,10 @@ export default class FormComponent extends Component {
         answers: [],
         formSubmitted: false,
         totalScore: 0,
+        isLoading: true,
     }
     static propTypes = {
-        userCollection: PropTypes.array,
+        wordCollection: PropTypes.array,
     }
 
     handleChange = (e, index) => {
@@ -93,7 +104,7 @@ export default class FormComponent extends Component {
     checkAnswers = (e) => {
         e.preventDefault();
         const answersArray = []
-        this.props.userCollection.map(individualWord => {
+        this.props.wordCollection.map(individualWord => {
             const { word } = individualWord.data();
             answersArray.push(word)
         });
@@ -106,8 +117,32 @@ export default class FormComponent extends Component {
         this.setState({ answers: [], totalScore: totalCorrect, formSubmitted: true });
     }
 
+    componentDidMount() {
+        const { wordCollection } = this.props;
+        const length = wordCollection.length > 5 ? 5 : wordCollection.length;
+        this.getRandom(wordCollection, length);
+    }
+
+    getRandom = (arr, n) => {
+        let result = new Array(n),
+            len = arr.length,
+            taken = new Array(len);
+        if (n > len)
+            throw new RangeError("getRandom: more elements taken than available");
+        while (n--) {
+            let x = Math.floor(Math.random() * len);
+            result[n] = arr[x in taken ? taken[x] : x];
+            taken[x] = --len in taken ? taken[len] : len;
+        }
+        console.log(result)
+        this.setState({ wordCollection: result, isLoading: false });
+    }
+
     resetTest = () => {
-        this.setState({ formSubmitted: false, totalScore: 0 })
+        this.setState({ formSubmitted: false, totalScore: 0, isLoading: true });
+        const { wordCollection } = this.props;
+        const length = wordCollection.length > 5 ? 5 : wordCollection.length;
+        this.getRandom(wordCollection, length);
     }
 
     render() {
@@ -116,7 +151,7 @@ export default class FormComponent extends Component {
                 <Container>
                     <CongratulationsContainer>
                         <h1>Congratulations!</h1>
-                        <p>Your Scored is: {this.state.totalScore} out of {this.props.userCollection.length}</p>
+                        <p>Your Scored is: {this.state.totalScore} out of {this.state.wordCollection.length}</p>
                         <button onClick={this.resetTest}>Try Again!</button>
                     </CongratulationsContainer>
                 </Container>
@@ -126,12 +161,21 @@ export default class FormComponent extends Component {
                 <Container>
                     <StyledForm onSubmit={this.checkAnswers}>
                         <h2>Vocabulary Test</h2>
-                        {this.props.userCollection.map((individualWord, index) => {
+                        {this.state.isLoading ? <Loading /> : this.state.wordCollection.map((individualWord, index) => {
                             const {word, definition,type } = individualWord.data();
                             return (
                                 <Input key={word}>
-                                    <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
-                                    <input id={word} type="text" data-id={index} onChange={(e) => this.handleChange(e, index)} value={this.state.answers[index] || ''} name={word} className="guess"/>
+                                    <div>
+                                        <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
+                                        <input id={word} type="text" data-id={index} onChange={(e) => this.handleChange(e, index)} value={this.state.answers[index] || ''} name={word} className="guess"/>
+                                    </div>
+                                    <div className="icon">
+                                        <ReactTooltip />
+                                        <FontAwesomeIcon 
+                                            data-tip={`This word begins with the letter: ${word[0].toUpperCase()}`}
+                                            icon={faInfoCircle} 
+                                            />
+                                    </div>
                                 </Input>
                                  )
                         })}

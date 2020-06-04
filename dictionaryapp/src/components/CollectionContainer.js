@@ -37,7 +37,7 @@ const SingleDefinition = styled.li`
         transition: 200ms ease-in-out;
         cursor: pointer;
         &:hover {
-                transform: scale(1.3);
+            transform: scale(1.3);
         }
     }
     h2 {
@@ -96,7 +96,7 @@ export default class CollectionContainer extends Component {
             <div style={{ marginBottom: "5rem", width: "100%", display: "flex", justifyContent: "center" }}>
                 <Container>
                     <ReactTooltip />
-                    <h2>Your Word Collection</h2>
+                    <h2>Vocabulary List</h2>
                     <ul style={{ padding: "0" }}>
                     {this.props.collection.map(word => {
                         return(
