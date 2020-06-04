@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { SearchContainer, Image, StyledForm, StyledInput } from './styles/components/searchBar';
+import { SearchContainer, Image, StyledForm, StyledInput, Container } from './styles/components/searchBar';
 
 
 
@@ -29,7 +29,7 @@ export default class SearchBar extends Component {
     render() {
         const { theme } = this.props;
         return (
-            <div style={{display: "flex", justifyContent: "center"}}>
+            <Container>
                 <SearchContainer searched={this.state.isWordSearched} >
                     <Image 
                         src={require(`../images/${theme}.svg`)} 
@@ -45,10 +45,10 @@ export default class SearchBar extends Component {
                             placeholder="Search for a word"
                             value={this.state.query}
                             onChange={this.handleInputChange}/>
-                        <Button type="submit">Search</Button>
+                        <Button inverse={true} type="submit">Search</Button>
                     </StyledForm>
                 </SearchContainer>
-            </div>
+            </Container>
         )
     }
 }

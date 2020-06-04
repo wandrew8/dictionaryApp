@@ -18,6 +18,12 @@ const FlexContainer = styled.div`
     align-items: center;
 `;
 
+const Container = styled.main`
+    min-height: calc(100vh - 100px);
+    padding: 0;
+    margin: 0;
+`;
+
 class Home extends Component {
     state = {
         data: [],
@@ -108,27 +114,28 @@ class Home extends Component {
                     isSignedIn={this.state.isSignedIn}
                     userImage={this.state.userInfo ? this.state.userInfo.photoURL : ''}
                      />
-                <h1>Welcome to the Dictionary App</h1>
-                <SearchBar 
-                    handleSearch={this.handleSearch}
-                    theme={this.props.theme}
-                />
-                <FlexContainer>
-                    {this.state.isLoading ? <Loading /> : null}
-                    {!this.state.isLoading && this.state.word ? this.state.data.map((definition, i) => {
-                        return (
-                            <DefinitionCard 
-                                key={i}
-                                isSignedIn={this.state.isSignedIn}
-                                def={definition}
-                                word={this.state.word}
-                                theme={this.props.theme}
-                                pronunciation={this.state.pronunciation}
-                            />
-                        )
-                    }) : null}
-                    {this.state.badSearch ? <h3>No Results Found</h3> : null}
-                </FlexContainer>
+                <Container>
+                    <SearchBar 
+                        handleSearch={this.handleSearch}
+                        theme={this.props.theme}
+                    />
+                    <FlexContainer>
+                        {this.state.isLoading ? <Loading /> : null}
+                        {!this.state.isLoading && this.state.word ? this.state.data.map((definition, i) => {
+                            return (
+                                <DefinitionCard 
+                                    key={i}
+                                    isSignedIn={this.state.isSignedIn}
+                                    def={definition}
+                                    word={this.state.word}
+                                    theme={this.props.theme}
+                                    pronunciation={this.state.pronunciation}
+                                />
+                            )
+                        }) : null}
+                        {this.state.badSearch ? <h3>No Results Found</h3> : null}
+                    </FlexContainer>
+                </Container>
                 {this.state.isLoading ? <Loading /> : <WordOfDay word={this.state.wordOfTheDay} />}
             </div>
         )

@@ -71,14 +71,14 @@ const Container = styled.div`
 `;
 
 export default function WordOfDay(props) {
-    const { word, note, examples, publishDate } = props.word;
+    const { word, note, examples, pdd } = props.word;
     const { text, partOfSpeech } = props.word.definitions[0];
     return (
         <Container>
             <div className="wordDay">
                 <div className="heading">
                     <h2>Word of the Day</h2>
-                    <p>{moment(publishDate).format('LL')}</p>
+                    <p>{moment(pdd).format('MMMM do YYYY')}</p>
                 </div>
                 <div className="body">
                     <h3>{word}<sup>{partOfSpeech}</sup></h3>

@@ -1,6 +1,20 @@
 import styled from 'styled-components';
 import { variables } from '../variables';
 
+export const Container = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    display: flex;
+    min-width: 300px;
+    width: 100%;
+`;
+
 export const SearchContainer = styled.div`
     position: ${props => props.searched ? "absolute" : "relative"};
     top: ${props => props.searched ? "50px" : "0px"};

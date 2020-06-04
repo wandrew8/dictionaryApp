@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Loading from './Loading';
+import ShowResults from './ShowResults';
+import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip from "react-tooltip";
 import { variables } from '../components/styles/variables';
 
@@ -35,6 +37,13 @@ const CongratulationsContainer = styled.div`
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].dark };
+    .iconContainer {
+        display: block;
+        text-align: center;
+        .gray {
+            color: lightgray;
+        }
+    }
 `;
 
 const StyledForm = styled.form`
@@ -90,6 +99,7 @@ export default class FormComponent extends Component {
         formSubmitted: false,
         totalScore: 0,
         isLoading: true,
+        showResults: false,
     }
     static propTypes = {
         wordCollection: PropTypes.array,
@@ -102,20 +112,25 @@ export default class FormComponent extends Component {
     }
 
     checkAnswers = (e) => {
+        const lowerCaseAnswers = this.state.answers.map(answer => answer.toLowerCase());
+        console.log(lowerCaseAnswers);
+        console.log(this.state.answers)
         e.preventDefault();
         const answersArray = []
-        this.props.wordCollection.map(individualWord => {
+        this.state.wordCollection.map(individualWord => {
             const { word } = individualWord.data();
             answersArray.push(word)
         });
         let totalCorrect = 0;
         answersArray.forEach((word, i) => {
-            if(word === this.state.answers[i]){
+            if(word.toLowerCase() === lowerCaseAnswers[i]){
                 totalCorrect++;
             }
         })
-        this.setState({ answers: [], totalScore: totalCorrect, formSubmitted: true });
+        this.setState({ totalScore: totalCorrect, formSubmitted: true });
     }
+
+
 
     componentDidMount() {
         const { wordCollection } = this.props;
@@ -139,7 +154,7 @@ export default class FormComponent extends Component {
     }
 
     resetTest = () => {
-        this.setState({ formSubmitted: false, totalScore: 0, isLoading: true });
+        this.setState({ answers: [], formSubmitted: false, totalScore: 0, isLoading: true, showResults: false });
         const { wordCollection } = this.props;
         const length = wordCollection.length > 5 ? 5 : wordCollection.length;
         this.getRandom(wordCollection, length);
@@ -152,7 +167,16 @@ export default class FormComponent extends Component {
                     <CongratulationsContainer>
                         <h1>Congratulations!</h1>
                         <p>Your Scored is: {this.state.totalScore} out of {this.state.wordCollection.length}</p>
-                        <button onClick={this.resetTest}>Try Again!</button>
+                        <Button handleClick={this.resetTest}>Try Again!</Button>
+                        <div 
+                            onClick={() => this.setState({ showResults: !this.state.showResults })}
+                            className="iconContainer">
+                            <p className="gray">{this.state.showResults ? "Hide Results" : "Show Results"}</p>
+                            <FontAwesomeIcon 
+                                icon={faAngleDown}
+                            />
+                        </div>
+                        {this.state.showResults ? <ShowResults wordCollection={this.state.wordCollection} answers={this.state.answers} /> : null}
                     </CongratulationsContainer>
                 </Container>
             )
@@ -179,7 +203,7 @@ export default class FormComponent extends Component {
                                 </Input>
                                  )
                         })}
-                        <button>Submit</button>
+                        <Button>Submit</Button>
                     </StyledForm>
                 </Container>
             )
