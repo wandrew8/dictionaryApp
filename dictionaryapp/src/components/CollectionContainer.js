@@ -62,6 +62,10 @@ const SingleDefinition = styled.li`
     &:hover {
         box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     }
+    &:nth-child(odd) {
+        background: ${props =>
+            props.theme.nightMode === "light" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"};
+    }
 
 `;
 

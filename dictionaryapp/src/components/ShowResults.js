@@ -32,9 +32,10 @@ export default class ShowResults extends Component {
             <Container>
                { wordCollection.map((individualWord, i) => {
                    const { word, definition, type } = individualWord.data();
-                   if (word.toLowerCase() === answers[i].toLowerCase()) {
+                   const answer = answers[i] ? answers[i].toLowerCase() : answers[i];
+                   if (word.toLowerCase() === answer) {
                        return (
-                           <div>
+                           <div key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Correct</p>
@@ -45,7 +46,7 @@ export default class ShowResults extends Component {
                        )
                    } else {
                         return (
-                            <div>
+                            <div key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Incorrect</p>

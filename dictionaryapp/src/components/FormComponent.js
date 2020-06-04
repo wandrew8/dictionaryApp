@@ -173,7 +173,7 @@ export default class FormComponent extends Component {
         } else if (score > 0) {
             this.setState({ formSubmitted: true, message: "Oh No!", subtitle: 'You need to review a few more times' })
         } else {
-            this.setState({ formSubmitted: true, message: "Hmm... This is Embarassing", subtitle: "You didn't get any correct!" })
+            this.setState({ formSubmitted: true, message: "Oh No!", subtitle: "You didn't get any correct!" })
         }
     }
 
