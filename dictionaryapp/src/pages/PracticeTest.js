@@ -98,7 +98,7 @@ class Test extends Component {
                     <ActivityNavigation practice={true} id={id} />
                     {this.state.isLoading ? <Loading /> : null }
                     {this.state.wordCollection.length < 5 
-                            ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.wordCollection.length} {this.state.wordCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent wordCollection={this.state.wordCollection} /> }
+                            ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.wordCollection.length} {this.state.wordCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent theme={this.props.theme} wordCollection={this.state.wordCollection} /> }
                 </React.Fragment>
             )
         }

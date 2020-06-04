@@ -29,10 +29,12 @@ const CongratulationsContainer = styled.div`
     max-width: 700px;
     min-width: 300px;
     text-align: left;
-    padding: 4rem 3rem;
     border-radius: 2rem;
     text-align: center;
+    position: relative;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border: solid 2px ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].white };
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     color: ${props =>
@@ -40,9 +42,29 @@ const CongratulationsContainer = styled.div`
     .iconContainer {
         display: block;
         text-align: center;
-        .gray {
-            color: lightgray;
+        color: lightgray;
+        cursor: pointer;
+        margin-top: 2rem;
+    }
+    .flexContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2rem 0rem 0rem 2rem;
+
         }
+    }
+    .message {
+        padding: 2rem;
+    }
+    .bottom {
+        padding: 2rem 3rem;
     }
 `;
 
@@ -53,6 +75,8 @@ const StyledForm = styled.form`
     text-align: left;
     padding: 4rem 3rem;
     border-radius: 2rem;
+    border: solid 2px ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].white : variables[props.theme.theme].white };
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
@@ -100,9 +124,12 @@ export default class FormComponent extends Component {
         totalScore: 0,
         isLoading: true,
         showResults: false,
+        message: '',
+        subtitle: ''
     }
     static propTypes = {
         wordCollection: PropTypes.array,
+        theme: PropTypes.string,
     }
 
     handleChange = (e, index) => {
@@ -127,10 +154,28 @@ export default class FormComponent extends Component {
                 totalCorrect++;
             }
         })
-        this.setState({ totalScore: totalCorrect, formSubmitted: true });
+        this.setState({ totalScore: totalCorrect }, () => {
+            this.getMessage(totalCorrect);
+        });
+
     }
 
-
+    getMessage = (total) => {
+        const score = total / this.props.wordCollection.length * 100; 
+        if(score === 100) {
+            this.setState({ formSubmitted: true, message: "Perfect Score!", subtitle: 'You must be a genius' })
+        } else if (score > 75) {
+            this.setState({ formSubmitted: true, message: "Congratulations!", subtitle: 'You have nearly mastered these words' })
+        } else if (score > 50) {
+            this.setState({ formSubmitted: true, message: "Good Effort", subtitle: 'With more practice you can do better' })
+        } else if (score > 25) {
+            this.setState({ formSubmitted: true, message: "Good Try!", subtitle: 'But you need to study some more' })
+        } else if (score > 0) {
+            this.setState({ formSubmitted: true, message: "Oh No!", subtitle: 'You need to review a few more times' })
+        } else {
+            this.setState({ formSubmitted: true, message: "Hmm... This is Embarassing", subtitle: "You didn't get any correct!" })
+        }
+    }
 
     componentDidMount() {
         const { wordCollection } = this.props;
@@ -161,22 +206,29 @@ export default class FormComponent extends Component {
     }
 
     render() {
+        const { theme } = this.props;
         if (this.state.formSubmitted) {
             return (
                 <Container>
                     <CongratulationsContainer>
-                        <h1>Congratulations!</h1>
-                        <p>Your Scored is: {this.state.totalScore} out of {this.state.wordCollection.length}</p>
-                        <Button handleClick={this.resetTest}>Try Again!</Button>
-                        <div 
-                            onClick={() => this.setState({ showResults: !this.state.showResults })}
-                            className="iconContainer">
-                            <p className="gray">{this.state.showResults ? "Hide Results" : "Show Results"}</p>
-                            <FontAwesomeIcon 
-                                icon={faAngleDown}
-                            />
+                        <div className="flexContainer">
+                            <img src={require(`../images/${theme}.svg`)} />
+                            <div className="message">
+                                <h1>{this.state.message}</h1>
+                                <p>{this.state.subtitle}</p>
+                                <p>Your Scored is: {this.state.totalScore} out of {this.state.wordCollection.length}</p>
+                                <Button handleClick={this.resetTest}>Try Again!</Button>
+                                <div 
+                                    onClick={() => this.setState({ showResults: !this.state.showResults })}
+                                    className="iconContainer">
+                                    <p>{this.state.showResults ? "Hide Results" : "Show Results"}</p>
+                                    <FontAwesomeIcon 
+                                        icon={faAngleDown}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        {this.state.showResults ? <ShowResults wordCollection={this.state.wordCollection} answers={this.state.answers} /> : null}
+                        {this.state.showResults ? <div className="bottom"><ShowResults wordCollection={this.state.wordCollection} answers={this.state.answers} /></div> : null}
                     </CongratulationsContainer>
                 </Container>
             )
