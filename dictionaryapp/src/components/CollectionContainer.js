@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { variables } from '../components/styles/variables';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import AddWordForm from '../components/AddWordForm';
 import ReactTooltip from "react-tooltip";
 import styled from 'styled-components';
 
@@ -74,6 +75,7 @@ const Container = styled.div`
     max-width: 800px;
     min-width: 300px;
     min-height: 400px;
+    position: relative;
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     color: ${props =>
@@ -86,21 +88,50 @@ const Container = styled.div`
         margin-bottom: 1.5rem;
 
     }
+    .addicon {
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+        font-size: 2rem;
+        color: lightgray;
+        cursor: pointer;
+    }
 `;
 
 
 export default class CollectionContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showForm: false,
+        }
+        this.toggleForm = this.toggleForm.bind(this);
+    }
+    
     static propTypes = {
         collection: PropTypes.array,
         removeItem: PropTypes.func,
         showRemove: PropTypes.bool
     }
+
+    toggleForm = () => {
+        this.setState({ showForm: !this.state.showForm })
+    }
+
     render() {
         return (
             <div style={{ marginBottom: "5rem", width: "100%", display: "flex", justifyContent: "center" }}>
+                <AddWordForm 
+                    toggleForm={this.toggleForm} 
+                    showForm={this.state.showForm} /> 
                 <Container>
                     <ReactTooltip />
                     <h2>Vocabulary List</h2>
+                    <FontAwesomeIcon 
+                        onClick={() => this.setState({ showForm: !this.state.showForm })}
+                        data-tip="Add new word to your collection" 
+                        className="addicon" 
+                        icon={faPlusSquare} />
                     <ul style={{ padding: "0" }}>
                     {this.props.collection.map(word => {
                         return(
