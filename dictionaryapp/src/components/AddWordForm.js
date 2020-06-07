@@ -8,8 +8,6 @@ import firebase from 'firebase';
 
 const db = firebase.firestore();
 
-
-
 export default class AddWordForm extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +26,7 @@ export default class AddWordForm extends Component {
         toggleForm: PropTypes.func,
         closeForm: PropTypes.func,
         uid: PropTypes.string,
+        addWordToCollection: PropTypes.func,
     }
 
     handleChange = (e) => {
@@ -64,6 +63,7 @@ export default class AddWordForm extends Component {
             .add(newWord);
         this.setState({ definition: '', example: '', type: '', word: '' });
         this.props.toggleForm();
+        this.props.addWordToCollection(this.props.uid);
     }
 
     render() {
