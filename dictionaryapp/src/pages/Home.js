@@ -16,6 +16,7 @@ const FlexContainer = styled.div`
     grid-gap: 1.2rem;
     justify-items: center;
     align-items: center;
+    margin: 2rem 0rem;
 `;
 
 const Container = styled.main`

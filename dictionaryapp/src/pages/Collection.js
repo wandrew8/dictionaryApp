@@ -122,7 +122,7 @@ class Collection extends Component {
                         />
                         <ActivityNavigation practice={false}/>
                         {this.state.isLoading ? <Loading /> : null }
-                        {this.state.userCollection.length > 0 ? <CollectionContainer removeItem={this.removeItem} showRemove={true} collection={this.state.userCollection} /> : <p>You have no words in your collection</p>}
+                        {this.state.userCollection.length > 0 ? <CollectionContainer showAddWordForm={true} removeItem={this.removeItem} showRemove={true} collection={this.state.userCollection} uid={this.state.userInfo.uid} /> : <p>You have no words in your collection</p>}
                     </React.Fragment>
             )
         } else {

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation';
 import Header from '../components/Header';
-import Modal from '../components/Modal';
 import ActivityNavigation from '../components/ActivityNavigation';
 import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
-import FirebaseAuth from '../components/FirebaseAuth';
 
 const db = firebase.firestore();
 
@@ -112,7 +110,7 @@ class WordCollection extends Component {
                     />
                     <ActivityNavigation practice={true} id={id}/>
                     {this.state.isLoading ? <Loading /> : null }
-                    {this.state.wordCollection.length > 0 ? <CollectionContainer showRemove={false} collection={this.state.wordCollection} /> : <p>You have no words in your collection</p>}
+                    {this.state.wordCollection.length > 0 ? <CollectionContainer showAddWordForm={false} showRemove={false} collection={this.state.wordCollection} /> : <p>You have no words in your collection</p>}
                 </React.Fragment>
             )
         } 

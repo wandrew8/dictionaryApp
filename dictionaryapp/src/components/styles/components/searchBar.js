@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { variables } from '../variables';
 
 export const Container = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 500px;
+    position: ${props => props.searched ? "relative" : "absolute"};
+    top: ${props => props.searched ? "-50px" : "50%"};
+    left: ${props => props.searched ? "0px" : "50%"};
+    transform: ${props => props.searched ? "" : "translate(-50%, -50%)"};
+    max-width: ${props => props.searched ? "100%" : "500px"};
     padding: 0;
     margin: 0;
+    margin-bottom: ${props => props.searched ? "2rem" : "0rem"};
     justify-content: center;
     display: flex;
     min-width: 300px;
@@ -17,7 +18,7 @@ export const Container = styled.div`
 
 export const SearchContainer = styled.div`
     position: ${props => props.searched ? "absolute" : "relative"};
-    top: ${props => props.searched ? "50px" : "0px"};
+    top: 0px;
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].backgroundLight : variables[props.theme.theme].backgroundDark };
     min-width: ${props => props.searched ? "100%" : "300px"};
@@ -30,7 +31,7 @@ export const SearchContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 500ms linear;
+    transition: 300ms ease-in;
     box-shadow: ${variables.boxShadow};
 `;
 

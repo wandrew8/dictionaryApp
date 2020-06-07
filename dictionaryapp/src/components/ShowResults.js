@@ -1,24 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { Container } from './styles/components/showResults';
 
-const Container = styled.div`
-    text-align: left;
-    .answers {
-        padding: 0rem 2rem;
-    }
-    .fade {
-        color: lightgray;
-    }
-    .iconGood {
-        color: green;
-    }
-    .iconBad {
-        color: red;
-    }
-`;
 
 export default class ShowResults extends Component {
     static propTypes = {

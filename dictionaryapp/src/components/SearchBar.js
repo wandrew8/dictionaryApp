@@ -4,7 +4,6 @@ import Button from './Button';
 import { SearchContainer, Image, StyledForm, StyledInput, Container } from './styles/components/searchBar';
 
 
-
 export default class SearchBar extends Component {
     state = {
         query: '',
@@ -29,7 +28,7 @@ export default class SearchBar extends Component {
     render() {
         const { theme } = this.props;
         return (
-            <Container>
+            <Container searched={this.state.isWordSearched}>
                 <SearchContainer searched={this.state.isWordSearched} >
                     <Image 
                         src={require(`../images/${theme}.svg`)} 

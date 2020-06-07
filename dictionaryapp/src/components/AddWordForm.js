@@ -1,74 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import Button from '../components/Button';
+import { Form } from './styles/components/addWordForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-import { variables } from './styles/variables';
+import firebase from 'firebase';
 
-const Form = styled.div`
-    h2 {
-        padding: 0;
-        margin: 0;
-    }
-    .showForm {
-        transition: 300ms ease-in-out;
-        z-index: 100;
-        transform: translateY(0);
-        background-color: white;
-        border: solid 1px black;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 500px;
-        padding: 0;
-        margin: 0;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        min-width: 300px;
-        width: 100%;
-    }
-    .hideForm {
-        transition: 300ms ease-in-out;
-        z-index: 100;
-        transform: translateY(0);
-        background-color: white;
-        border: solid 1px black;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -55%);
-        max-width: 500px;
-        padding: 0;
-        margin: 0;
-        opacity: 0;
-        display: hidden;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        min-width: 300px;
-        width: 100%;
-    }
-    .icon {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-    }
-    form {
-        text-align: left;
-        label, input, select, textarea {
-            display: block;
-            margin: 1rem 0rem;
-            width: 100%;
-            font-family: ${variables.primaryFont}
-        }
-    }
-    .formContainer {
-        padding: 3rem 2rem;
-    }
-`;
+const db = firebase.firestore();
+
+
 
 export default class AddWordForm extends Component {
     constructor(props) {
@@ -84,23 +24,53 @@ export default class AddWordForm extends Component {
     }
     
     static propTypes = {
-        showForm: PropTypes.bool
+        showForm: PropTypes.bool,
+        toggleForm: PropTypes.func,
+        closeForm: PropTypes.func,
+        uid: PropTypes.string,
     }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+        if(!this.node.contains(e.target)) {
+            this.props.closeForm();
+        }
+    }
+
     addWord = (e) => {
         e.preventDefault();
-        console.log("hello")
+        const newWord = {
+            dateAdded: new Date(),
+            definition: this.state.definition,
+            example: this.state.example,
+            type: this.state.type,
+            word: this.state.word,
+        }
+        console.log(newWord);
+        db.collection('users')
+            .doc(this.props.uid)
+            .collection("wordCollection")
+            .add(newWord);
+        this.setState({ definition: '', example: '', type: '', word: '' });
+        this.props.toggleForm();
     }
 
     render() {
         const { showForm, toggleForm } = this.props;
         return (
             <Form>
-                <div className={showForm ? "showForm" : "hideForm"}>
+                <div ref={node => this.node = node} className={showForm ? "showForm" : "hideForm"}>
                     <div className="formContainer">
                         <FontAwesomeIcon 
                             icon={faTimes} 
