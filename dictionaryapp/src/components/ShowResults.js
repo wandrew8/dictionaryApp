@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container } from './styles/components/showResults';
 
 
-export default class ShowResults extends Component {
-    static propTypes = {
-       wordCollection: PropTypes.array,
-       answers: PropTypes.array,
-    }
-
-    render() {
-        const { wordCollection, answers } = this.props;
+export default function ShowResults(props) {
+        const { wordCollection, answers } = props;
         return (
             <Container>
                { wordCollection.map((individualWord, i) => {
@@ -46,5 +40,10 @@ export default class ShowResults extends Component {
                })}
             </Container>
         )
-    }
+    
 }
+
+ShowResults.propTypes = {
+    wordCollection: PropTypes.array,
+    answers: PropTypes.array,
+ }

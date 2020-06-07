@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactTooltip from "react-tooltip"; 
-import { Container } from './styles/components/navigation';
+import { Container } from './styles/components/activityNavigation';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

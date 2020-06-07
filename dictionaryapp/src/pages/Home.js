@@ -10,21 +10,6 @@ import WordOfDay from '../components/WordOfDay';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
-const FlexContainer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 1.2rem;
-    justify-items: center;
-    align-items: center;
-    margin: 2rem 0rem;
-`;
-
-const Container = styled.main`
-    min-height: calc(100vh - 100px);
-    padding: 0;
-    margin: 0;
-`;
-
 class Home extends Component {
     state = {
         data: [],
@@ -144,3 +129,18 @@ class Home extends Component {
 }
 
 export default withRouter(Home);
+
+const FlexContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.2rem;
+    justify-items: center;
+    align-items: center;
+    margin: 2rem 0rem;
+`;
+
+const Container = styled.main`
+    min-height: calc(100vh - 100px);
+    padding: 0;
+    margin: 0;
+`;

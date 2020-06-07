@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Modal from '../components/Modal';
-import Header from '../components/Header';
-import Navigation from '../components/Navigation';
 import FirebaseAuth from '../components/FirebaseAuth';
 import PropTypes from 'prop-types';
 import { variables } from '../components/styles/variables';

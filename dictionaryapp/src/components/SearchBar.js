@@ -1,53 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import { SearchContainer, Image, StyledForm, StyledInput, Container } from './styles/components/searchBar';
 
 
-export default class SearchBar extends Component {
-    state = {
-        query: '',
-        isWordSearched: false,
+export default function SearchBar(props) {
+    const [ query, setQuery ] = useState('');
+    const [ isWordSearched, setIsWordSearched ] = useState(false);
+
+    const handleInputChange = (e) => {
+        setQuery(e.target.value);
     }
 
-    static propTypes = {
-        handleSearch: PropTypes.func,
-        theme: PropTypes.string
-    }
-
-    handleInputChange = (e) => {
-        this.setState({ query: e.target.value });
-    }
-
-    submitForm = (e) => {
+    const submitForm = (e) => {
         e.preventDefault();
-        this.props.handleSearch(this.state.query);
-        this.setState({ query: '', isWordSearched: true })
+        props.handleSearch(query);
+        setIsWordSearched(true);
+        setQuery('');
     }
 
-    render() {
-        const { theme } = this.props;
-        return (
-            <Container searched={this.state.isWordSearched}>
-                <SearchContainer searched={this.state.isWordSearched} >
-                    <Image 
-                        src={require(`../images/${theme}.svg`)} 
-                        alt="" 
-                        searched={this.state.isWordSearched}    
-                        />
-                    <StyledForm 
-                        searched={this.state.isWordSearched}
-                        onSubmit={this.submitForm}>
-                        <StyledInput 
-                            name="query" 
-                            type="text" 
-                            placeholder="Search for a word"
-                            value={this.state.query}
-                            onChange={this.handleInputChange}/>
-                        <Button inverse={true} type="submit">Search</Button>
-                    </StyledForm>
-                </SearchContainer>
-            </Container>
-        )
-    }
+    const { theme } = props;
+    return (
+        <Container searched={isWordSearched}>
+            <SearchContainer searched={isWordSearched} >
+                <Image 
+                    src={require(`../images/${theme}.svg`)} 
+                    alt="" 
+                    searched={isWordSearched}    
+                    />
+                <StyledForm 
+                    searched={isWordSearched}
+                    onSubmit={submitForm}>
+                    <StyledInput 
+                        name="query" 
+                        type="text" 
+                        placeholder="Search for a word"
+                        value={query}
+                        onChange={handleInputChange}/>
+                    <Button inverse={true} type="submit">Search</Button>
+                </StyledForm>
+            </SearchContainer>
+        </Container>
+    )
+    
+}
+
+SearchBar.propTypes = {
+    handleSearch: PropTypes.func,
+    theme: PropTypes.string
 }

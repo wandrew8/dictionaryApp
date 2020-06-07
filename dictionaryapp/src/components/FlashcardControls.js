@@ -4,7 +4,6 @@ import { Controls } from './styles/components/flashcardControls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft, faAngleDoubleLeft, faAngleDoubleRight, faSync } from '@fortawesome/free-solid-svg-icons';
 
-
 export default function FlashcardControls(props) {
     const { totalNumber, currentNumber, moveNext, movePrev, moveFirst, moveLast, toggleOrder } = props;
     return (

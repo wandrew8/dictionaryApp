@@ -31,11 +31,9 @@ class WordCollection extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
-                //Redirects to home page if not logged in 
                 if(!user){
-                    console.log("user not logged in")
-                    this.setState({ isSignedIn: false, isLoading: false, showModal: true })
-                    // this.props.history.push('/');
+                    this.getWordsFromCollection();
+                    this.setState({ isSignedIn: false });
                 } else {
                     this.getWordsFromCollection();
                 }
@@ -51,7 +49,6 @@ class WordCollection extends Component {
         .then(snapshot => {
             const collection = []
             snapshot.docs.map(doc => {
-                console.log(doc.id)
                 collection.push(doc);
             })
             console.log(collection)
@@ -110,7 +107,7 @@ class WordCollection extends Component {
                     />
                     <ActivityNavigation practice={true} id={id}/>
                     {this.state.isLoading ? <Loading /> : null }
-                    {this.state.wordCollection.length > 0 ? <CollectionContainer showAddWordForm={false} showRemove={false} collection={this.state.wordCollection} /> : <p>You have no words in your collection</p>}
+                    {this.state.wordCollection.length > 0 ? <CollectionContainer showAddWordForm={false} showRemove={false} collection={this.state.wordCollection} /> : <p>Oops, there are no words in this collection</p>}
                 </React.Fragment>
             )
         } 

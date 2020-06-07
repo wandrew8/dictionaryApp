@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import Navigation from '../components/Navigation';
 import Header from '../components/Header';
-import Modal from '../components/Modal';
 import ActivityNavigation from '../components/ActivityNavigation';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import FormComponent from '../components/FormComponent';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
-import FirebaseAuth from '../components/FirebaseAuth';
 
 const db = firebase.firestore();
 
@@ -38,7 +36,8 @@ class Test extends Component {
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
                 if(!user){
-                    this.setState({ isSignedIn: false, isLoading: false, showModal: true })
+                    this.getWordsFromCollection();
+                    this.setState({ isSignedIn: false })
                 } else {
                     this.getWordsFromCollection();
                 }

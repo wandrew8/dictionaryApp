@@ -32,7 +32,8 @@ class Review extends Component {
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
                 if(!user){
-                    this.setState({ isSignedIn: false })
+                    this.setState({ isSignedIn: false });
+                    this.getWordsFromCollection();
                 } else {
                     this.getWordsFromCollection();
                 }

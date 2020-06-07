@@ -4,8 +4,8 @@ import moment from 'moment';
 import { Container } from './styles/components/wordOfDay';
 
 export default function WordOfDay(props) {
-    const { word, note, examples, pdd } = props.word;
-    const { text, partOfSpeech } = props.word.definitions[0];
+    const { word, note, examples } = props.word;
+    const { text, partOfSpeech } = props.word.definitions[0];    
     return (
         <Container>
             <div className="wordDay">
@@ -13,7 +13,7 @@ export default function WordOfDay(props) {
                     <div className="heading">
                         <div>
                             <h2>Word of the Day</h2>
-                            <p>{moment(pdd).format('MMMM do YYYY')}</p>
+                            <p>{moment(Date.now()).format('MMMM Do YYYY')}</p>
                         </div>
                     </div>
                     <div className="body">
