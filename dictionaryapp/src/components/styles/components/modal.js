@@ -11,13 +11,15 @@ export const ModalContainer = styled.div`
     width: 90%;
     height: 90%;
     border-radius: 1rem;
+    background-color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     border: ${props => 
-    props.theme.nightMode === "light" ? `solid 2px ${variables[props.theme.theme].backgroundDark}` : `solid 2px ${variables[props.theme.theme].backgroundLight}` };
+    props.theme.nightMode === "light" ? `solid 1px ${variables[props.theme.theme].white}` : `solid 1px ${variables[props.theme.theme].dark}` };
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-    z-index: 10;
+    z-index: 50;
     .icon {
         position: absolute;
         top: 1rem;
@@ -39,9 +41,12 @@ export const ContentContainer = styled.div`
     height: 90%;
     width: 90%;
     border-radius: 1rem;
+    z-index: 40;
     position: fixed;
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    border: ${props => 
+    props.theme.nightMode === "light" ? `solid 1px ${variables[props.theme.theme].white}` : `solid 1px ${variables[props.theme.theme].dark}` };
     display: flex;
     justify-content: center;
     align-items: center;

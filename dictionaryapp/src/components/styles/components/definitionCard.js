@@ -9,7 +9,7 @@ height: 100%;
 text-align: left;
 position: relative;
 background-color: ${props =>
-props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].light };
+props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
 color: ${props =>
 props.theme.nightMode === "light" ? variables[props.theme.theme].light : variables[props.theme.theme].dark };
 padding: 1.5rem;
