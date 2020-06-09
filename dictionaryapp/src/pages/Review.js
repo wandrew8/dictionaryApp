@@ -40,7 +40,6 @@ class Review extends Component {
     }
 
     getUserCollection = uid => {
-        console.log(uid)
         db.collection('users')
         .doc(uid)
         .collection('wordCollection')
@@ -48,10 +47,8 @@ class Review extends Component {
         .then(snapshot => {
             const collection = []
             snapshot.docs.map(doc => {
-                console.log(doc.id)
                 collection.push(doc);
             })
-            console.log(collection)
             this.setState({ userCollection: collection, isLoading: false, totalNumber: collection.length })
         })
         .catch(err => console.log(err))
@@ -70,7 +67,6 @@ class Review extends Component {
     }
 
     moveNext = () => {
-        console.log("you click the next arrow")
         if(this.state.currentNumber + 1 !== this.state.totalNumber) {
             this.setState({ currentNumber: this.state.currentNumber + 1 });
         } else {

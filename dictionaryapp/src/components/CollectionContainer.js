@@ -37,9 +37,9 @@ export default function CollectionContainer(props) {
                     className="addicon" 
                     icon={faPlusSquare} /> : null }
                 <ul style={{ padding: "0" }}>
-                {collection.map(word => {
+                {collection.map((word, i) => {
                     return(
-                        <SingleDefinition key={word.data().word} >
+                        <SingleDefinition key={word.data().word + i} >
                             <div className="word">
                                 <h2>{word.data().word}<sup>{word.data().type}</sup></h2>
                             </div>

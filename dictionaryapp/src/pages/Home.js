@@ -122,7 +122,7 @@ class Home extends Component {
                         {this.state.badSearch ? <h3>No Results Found</h3> : null}
                     </FlexContainer>
                 </Container>
-                {this.state.isLoading ? <Loading /> : <WordOfDay word={this.state.wordOfTheDay} />}
+                {this.state.isLoading ? <Loading /> : <WordOfDay nightMode={this.props.nightMode} word={this.state.wordOfTheDay} />}
             </div>
         )
     }

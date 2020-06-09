@@ -1,64 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FlashcardControls from './FlashcardControls';
 import PropTypes from 'prop-types';
 import { Container, FlashCard } from './styles/components/flashcard';
 
 
-export default class Flashcard extends React.Component {
-    state = {
-        showBack: false,
-        showWordFirst: true,
-    }
-
-    static propTypes = {
-        word: PropTypes.string,
-        definition: PropTypes.string,
-        id: PropTypes.string,
-        totalNumber: PropTypes.number,
-        currentNumber: PropTypes.number,
-        moveNext: PropTypes.func,
-        movePrev: PropTypes.func,
-        moveFirst: PropTypes.func,
-        moveLast: PropTypes.func
+export default function Flashcard(props) {
+    const [showBack, setShowBack] = useState(false);
+    const [showWordFirst, setShowWordFirst] = useState(true);
     
-    }
+    const flipCard = () => {setShowBack(!showBack)};
+    const toggleOrder = () => {setShowWordFirst(!showWordFirst)};
 
-    flipCard = () => {
-        this.setState({ showBack: !this.state.showBack });
-    }
-
-    toggleOrder = () => {
-        this.setState({ showWordFirst: !this.state.showWordFirst });
-    }
-
-
-    render() {
-        const { word, definition, moveFirst, moveLast, currentNumber, totalNumber, movePrev, moveNext } = this.props;
-        return (
-            <Container>
-                <div>
-                    <FlashCard onClick={this.flipCard} >
-                        <div className={this.state.showBack ? "content rotate" : "content"}>
-                            <div className="front">
-                            {this.state.showWordFirst ? <h1>{word}</h1> : <p className="definition">{definition}</p>}
-                            </div>
-                            <div className="back">
-                            {this.state.showWordFirst ? <p className="definition">{definition}</p> : <h1>{word}</h1>}
-                            </div>
+   
+    const { word, definition, moveFirst, moveLast, currentNumber, totalNumber, movePrev, moveNext } = props;
+    return (
+        <Container>
+            <div>
+                <FlashCard onClick={flipCard} >
+                    <div className={showBack ? "content rotate" : "content"}>
+                        <div className="front">
+                        {showWordFirst ? <h1>{word}</h1> : <p className="definition">{definition}</p>}
                         </div>
-                    </FlashCard>
-                    <FlashcardControls 
-                        moveFirst={moveFirst}
-                        moveLast={moveLast}
-                        movePrev={movePrev}
-                        moveNext={moveNext}
-                        currentNumber={currentNumber + 1}
-                        totalNumber={totalNumber}
-                        toggleOrder={this.toggleOrder}/>
-                </div>
-            </Container>
-        )
-    }
+                        <div className="back">
+                        {showWordFirst ? <p className="definition">{definition}</p> : <h1>{word}</h1>}
+                        </div>
+                    </div>
+                </FlashCard>
+                <FlashcardControls 
+                    moveFirst={moveFirst}
+                    moveLast={moveLast}
+                    movePrev={movePrev}
+                    moveNext={moveNext}
+                    currentNumber={currentNumber + 1}
+                    totalNumber={totalNumber}
+                    toggleOrder={toggleOrder}/>
+            </div>
+        </Container>
+    )
+    
 }
 
 
+Flashcard.propTypes = {
+    word: PropTypes.string,
+    definition: PropTypes.string,
+    id: PropTypes.string,
+    totalNumber: PropTypes.number,
+    currentNumber: PropTypes.number,
+    moveNext: PropTypes.func,
+    movePrev: PropTypes.func,
+    moveFirst: PropTypes.func,
+    moveLast: PropTypes.func
+
+}

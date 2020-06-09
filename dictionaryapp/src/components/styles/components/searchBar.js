@@ -2,19 +2,30 @@ import styled from 'styled-components';
 import { variables } from '../variables';
 
 export const Container = styled.div`
-    position: ${props => props.searched ? "relative" : "absolute"};
-    top: ${props => props.searched ? "-50px" : "50%"};
-    left: ${props => props.searched ? "0px" : "50%"};
-    transform: ${props => props.searched ? "" : "translate(-50%, -50%)"};
+    position: ${props => props.searched ? "absolute" : "relative"};
+    top: ${props => props.searched ? "-50px" : "0"};
+    left: ${props => props.searched ? "0px" : "0"};
     max-width: ${props => props.searched ? "100%" : "500px"};
     padding: 0;
-    margin: 0;
+    margin: 0rem auto;
     margin-bottom: ${props => props.searched ? "2rem" : "0rem"};
     justify-content: center;
     display: flex;
     min-width: 300px;
     width: 100%;
 `;
+
+export const Section = styled.section`
+    min-height: ${props => props.searched ? "0px" : "calc(100vh - 100px)"};
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: ${props => props.searched ? "0rem" : "2rem 0rem"};
+    transform: ${props => props.searched ? "translate(0px, 0px)" : "none"};
+`;
+
 
 export const SearchContainer = styled.div`
     position: ${props => props.searched ? "absolute" : "relative"};

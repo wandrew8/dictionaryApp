@@ -20,6 +20,9 @@ export const ModalContainer = styled.div`
     align-items: center;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
     z-index: 50;
+    .hide {
+        opacity: 0.5;
+    }
     .icon {
         position: absolute;
         top: 1rem;
