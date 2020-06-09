@@ -3,6 +3,7 @@ import Navigation from '../components/Navigation';
 import Header from '../components/Header';
 import WordSetCard from '../components/WordSetCard';
 import Loading from '../components/Loading';
+import Footer from '../components/Footer';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
@@ -119,6 +120,7 @@ class Practice extends Component {
                     <Container>
                     {this.state.isLoading ? null : this.state.wordSets.length > 0 ? this.state.wordSets.map(set => <WordSetCard key={set.id} wordSet={set.data()} id={set.id} />) : <p>Oh no! We couldn't find any word sets to practice</p>}
                     </Container>
+                    <Footer />
                 </React.Fragment>
             )
         }

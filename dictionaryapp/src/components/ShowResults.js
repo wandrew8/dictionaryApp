@@ -6,9 +6,9 @@ import { Container } from './styles/components/showResults';
 
 
 export default function ShowResults(props) {
-        const { wordCollection, answers } = props;
+        const { wordCollection, answers, showResults } = props;
         return (
-            <Container>
+            <Container showResults={showResults}>
                { wordCollection.map((individualWord, i) => {
                    const { word, definition, type } = individualWord.data();
                    const answer = answers[i] ? answers[i].toLowerCase() : answers[i];
@@ -46,4 +46,5 @@ export default function ShowResults(props) {
 ShowResults.propTypes = {
     wordCollection: PropTypes.array,
     answers: PropTypes.array,
+    showResults: PropTypes.bool
  }

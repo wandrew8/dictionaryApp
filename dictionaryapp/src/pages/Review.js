@@ -5,6 +5,7 @@ import ActivityNavigation from '../components/ActivityNavigation';
 import Loading from '../components/Loading';
 import Flashcard from '../components/Flashcard';
 import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import { withRouter } from 'react-router';
 import firebase from 'firebase';
 
@@ -115,6 +116,7 @@ class Review extends Component {
                     word={this.state.userCollection[this.state.currentNumber].data().word} 
                     definition={this.state.userCollection[this.state.currentNumber].data().definition} id={this.state.userCollection[0].id} /> : null }
                 {!this.state.isLoading && this.state.userCollection.length === 0 ? <p>You have no words in your collection to review</p> : null}
+                {this.state.isLoading ? null : <Footer/>}
             </React.Fragment>
         )
     }

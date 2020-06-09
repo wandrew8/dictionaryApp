@@ -17,7 +17,13 @@ border: ${props =>
 props.theme.nightMode === "light" ? `solid 1px ${variables[props.theme.theme].light}` : `solid 1px ${variables[props.theme.theme].dark}` };
 margin: 1rem;
 border-radius: 1rem;
-transition: 200ms ease-in-out;
+transition: 300ms ease-in;
+opacity: ${props => props.isVisible ? '1' : '0'};
+transform: ${props => props.isVisible
+            ? 'translateX(0%)'
+            : 'translateX(10%)'};
+transition-timing-function: ease-in-out;
+transition-delay: ${props => 200 * props.index}ms;
 & img {
     position: absolute;
     top: 1.5rem;

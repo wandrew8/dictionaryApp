@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 import ShowResults from './ShowResults';
 import Button from './Button';
+import SettingsForm from './SettingsForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faAngleDown, faCog } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip from "react-tooltip";
 import { Input, CongratulationsContainer, StyledForm, Container } from './styles/components/formComponent';
 
@@ -16,7 +17,13 @@ export default class FormComponent extends Component {
         isLoading: true,
         showResults: false,
         message: '',
-        subtitle: ''
+        subtitle: '',
+        testLength: 5,
+        showForm: false,
+        hideHints: false,
+        showTimer: false,
+        timerLength: 0, 
+        
     }
     static propTypes = {
         wordCollection: PropTypes.array,
@@ -29,10 +36,16 @@ export default class FormComponent extends Component {
         this.setState({ answers })
     }
 
+    openForm = () => {
+        this.setState({ showForm: true});
+    }
+
+    closeForm = () => {
+        this.setState({ showForm: false });
+    }
+
     checkAnswers = (e) => {
         const lowerCaseAnswers = this.state.answers.map(answer => answer.toLowerCase());
-        console.log(lowerCaseAnswers);
-        console.log(this.state.answers)
         e.preventDefault();
         const answersArray = []
         this.state.wordCollection.map(individualWord => {
@@ -52,7 +65,7 @@ export default class FormComponent extends Component {
     }
 
     getMessage = (total) => {
-        const score = total / this.props.wordCollection.length * 100; 
+        const score = total / this.state.testLength * 100; 
         if(score === 100) {
             this.setState({ formSubmitted: true, message: "Perfect Score!", subtitle: 'You must be a genius' })
         } else if (score > 75) {
@@ -70,8 +83,8 @@ export default class FormComponent extends Component {
 
     componentDidMount() {
         const { wordCollection } = this.props;
-        const length = wordCollection.length > 5 ? 5 : wordCollection.length;
-        this.getRandom(wordCollection, length);
+        // const length = wordCollection.length > 5 ? 5 : wordCollection.length;
+        this.getRandom(wordCollection, this.state.testLength);
     }
 
     getRandom = (arr, n) => {
@@ -90,10 +103,16 @@ export default class FormComponent extends Component {
     }
 
     resetTest = () => {
-        this.setState({ answers: [], formSubmitted: false, totalScore: 0, isLoading: true, showResults: false });
         const { wordCollection } = this.props;
-        const length = wordCollection.length > 5 ? 5 : wordCollection.length;
-        this.getRandom(wordCollection, length);
+        this.setState({ answers: [], formSubmitted: false, totalScore: 0, isLoading: true, showResults: false });
+        // const length = wordCollection.length > 5 ? 5 : wordCollection.length;
+        this.getRandom(wordCollection, this.state.testLength);
+    }
+
+    changeSettings = (values) => {
+        this.setState({ testLength: values.testLength, hideHints: values.hideHints, showTimer: values.showTimer, timerLength: values.timerLength }, () => {
+            this.resetTest();
+        });
     }
 
     render() {
@@ -119,36 +138,50 @@ export default class FormComponent extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.showResults ? <div className="bottom"><ShowResults wordCollection={this.state.wordCollection} answers={this.state.answers} /></div> : null}
+                        <ShowResults showResults={this.state.showResults} wordCollection={this.state.wordCollection} answers={this.state.answers} />
                     </CongratulationsContainer>
                 </Container>
             )
         } else {
             return (
-                <Container>
-                    <StyledForm onSubmit={this.checkAnswers}>
-                        <h2>Vocabulary Test</h2>
-                        {this.state.isLoading ? <Loading /> : this.state.wordCollection.map((individualWord, index) => {
-                            const {word, definition,type } = individualWord.data();
-                            return (
-                                <Input key={word}>
-                                    <div>
-                                        <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
-                                        <input id={word} type="text" data-id={index} onChange={(e) => this.handleChange(e, index)} value={this.state.answers[index] || ''} name={word} className="guess"/>
-                                    </div>
-                                    <div className="icon">
-                                        <ReactTooltip />
-                                        <FontAwesomeIcon 
-                                            data-tip={`This word begins with the letter: ${word[0].toUpperCase()}`}
-                                            icon={faInfoCircle} 
-                                            />
-                                    </div>
-                                </Input>
-                                 )
-                        })}
-                        <Button>Submit</Button>
-                    </StyledForm>
-                </Container>
+                <React.Fragment>
+                    {this.state.showForm ? <SettingsForm 
+                        changeSettings={this.changeSettings}
+                        openForm={this.openForm} 
+                        showForm={this.state.showForm} 
+                        wordCount={this.props.wordCollection}
+                        closeForm={this.closeForm} /> : null}
+                    <Container>
+                        <StyledForm onSubmit={this.checkAnswers}>
+                        <ReactTooltip />
+                        <FontAwesomeIcon 
+                            data-tip="Change the test settings" 
+                            icon={faCog} 
+                            className="settings" 
+                            onClick={this.openForm} />
+                            <h2>Vocabulary Test</h2>
+                            {this.state.isLoading ? <Loading /> : this.state.wordCollection.map((individualWord, index) => {
+                                const {word, definition,type } = individualWord.data();
+                                return (
+                                    <Input key={word}>
+                                        <div>
+                                            <label htmlFor={word}>{`${index + 1}. ${definition[0].toUpperCase() + definition.slice(1)}`}<span className="type">({type})</span></label>
+                                            <input id={word} type="text" data-id={index} onChange={(e) => this.handleChange(e, index)} value={this.state.answers[index] || ''} name={word} className="guess"/>
+                                        </div>
+                                        {this.state.hideHints ? null : <div className="icon">
+                                            <ReactTooltip />
+                                            <FontAwesomeIcon 
+                                                data-tip={`This word begins with the letter: ${word[0].toUpperCase()}`}
+                                                icon={faInfoCircle} 
+                                                />
+                                        </div>}
+                                    </Input>
+                                    )
+                            })}
+                            <Button>Submit</Button>
+                        </StyledForm>
+                    </Container>
+                </React.Fragment>
             )
         }
     }

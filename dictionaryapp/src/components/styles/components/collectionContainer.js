@@ -55,11 +55,15 @@ sup {
     border-bottom: none;
 }
 &:hover {
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 &:nth-child(odd) {
     background: ${props =>
         props.theme.nightMode === "light" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"};
+}
+&:last-of-type {
+    margin-bottom: -1rem;
+    border-radius: 0rem 0rem 1rem 1rem;
 }
 
 `;

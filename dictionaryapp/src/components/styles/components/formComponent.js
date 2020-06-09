@@ -55,9 +55,6 @@ props.theme.nightMode === "light" ? variables[props.theme.theme].white : variabl
 .message {
     padding: 2rem;
 }
-.bottom {
-    padding: 2rem 3rem;
-}
 `;
 
 export const StyledForm = styled.form`
@@ -65,6 +62,7 @@ width: 90%;
 max-width: 700px;
 min-width: 300px;
 text-align: left;
+position: relative;
 padding: 4rem 3rem;
 border-radius: 2rem;
 border: solid 2px ${props =>
@@ -98,6 +96,14 @@ span {
     color: lightgray;
     font-size: 0.8rem;
     padding-left: 1rem;
+}
+.settings {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: lightgray;
+    cursor: pointer;
+    font-size: 1.5rem;
 }
 `;
 

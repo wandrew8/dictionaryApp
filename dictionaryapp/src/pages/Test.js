@@ -5,6 +5,7 @@ import Modal from '../components/Modal';
 import ActivityNavigation from '../components/ActivityNavigation';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import FormComponent from '../components/FormComponent';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
@@ -100,6 +101,7 @@ class Test extends Component {
                         {this.state.isLoading ? <Loading /> : null }
                         {this.state.userCollection.length < 5 
                                 ? <><p>You must have 5 or more words in your collection to take a test</p><p>You currently have {this.state.userCollection.length} {this.state.userCollection.length === 1 ? "word" : "words"} in your collection</p></> : <FormComponent theme={this.props.theme} wordCollection={this.state.userCollection} /> }
+                        <Footer />
                     </React.Fragment>
             )
             
@@ -121,6 +123,7 @@ class Test extends Component {
                         <p>You must first create an account and add words to your collection</p>
                         <FirebaseAuth />
                     </Modal>
+                    <Footer />
                 </React.Fragment>
             )
 

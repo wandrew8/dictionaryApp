@@ -10,8 +10,10 @@ h2 {
     transition: 300ms ease-in-out;
     z-index: 100;
     transform: translateY(0);
-    background-color: white;
-    border: solid 1px black;
+    background-color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    border: ${props =>
+    props.theme.nightMode === "light" ? `solid 1px ${variables[props.theme.theme].white}` : `solid 1px ${variables[props.theme.theme].dark}` };
     position: fixed;
     top: 50%;
     left: 50%;
@@ -31,8 +33,10 @@ h2 {
     transition: 300ms ease-in-out;
     z-index: -10;
     transform: translateY(0);
-    background-color: white;
-    border: solid 1px black;
+    background-color: ${props =>
+    props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    border: ${props =>
+    props.theme.nightMode === "light" ? `solid 1px ${variables[props.theme.theme].white}` : `solid 1px ${variables[props.theme.theme].dark}` };
     position: fixed;
     top: 50%;
     left: 50%;
@@ -51,12 +55,14 @@ h2 {
 }
 .icon {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 form {
     text-align: left;
-    label, input, select, textarea {
+    input, select, textarea {
         display: block;
         margin: 1.5rem 0rem;
         width: 100%;
@@ -69,14 +75,36 @@ form {
     }
     input, select {
         height: 35px;
-        
+        background-color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+        color: ${props =>
+        props.theme.nightMode === "dark" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
     }
     textarea {
+        padding-top: 0.5rem;
         height: 100px;
+        background-color: ${props =>
+        props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+        color: ${props =>
+        props.theme.nightMode === "dark" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    }
+    #hideHints, #showTimer {
+        display: inline;
+        height: 25px;
+        width: 25px;
+
+    }
+    label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0rem 0.25rem;
+        font-size: 0.9rem;
     }
 
 }
 .formContainer {
     padding: 3rem 2rem;
+    width: 100%;
 }
 `;

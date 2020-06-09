@@ -42,12 +42,12 @@ export default function DefinitionCard(props) {
         }
     }
 
-    const { word, pronunciation } = props;
+    const { word, pronunciation, index, isVisible } = props;
     const { type, definition, example, image_url } = props.def;
     return (
         <React.Fragment>
             <ReactTooltip />
-            <DefinitionContainer>
+            <DefinitionContainer isVisible={isVisible} index={index}>
                 <div className="cardHeading">
                     <h2>{word}<sup>{type}</sup></h2>
                     {image_url ? <img src={image_url} alt="word" /> : null }
@@ -88,5 +88,7 @@ DefinitionCard.propTypes = {
     word: PropTypes.string,
     pronunciation: PropTypes.string,
     isSignedIn: PropTypes.bool,
-    theme: PropTypes.string
+    theme: PropTypes.string,
+    index: PropTypes.number,
+    isVisible: PropTypes.bool,
 }

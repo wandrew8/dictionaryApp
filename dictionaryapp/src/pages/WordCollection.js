@@ -5,6 +5,7 @@ import ActivityNavigation from '../components/ActivityNavigation';
 import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router';
 
@@ -108,6 +109,7 @@ class WordCollection extends Component {
                     <ActivityNavigation practice={true} id={id}/>
                     {this.state.isLoading ? <Loading /> : null }
                     {this.state.wordCollection.length > 0 ? <CollectionContainer showAddWordForm={false} showRemove={false} collection={this.state.wordCollection} /> : <p>Oops, there are no words in this collection</p>}
+                    <Footer/>
                 </React.Fragment>
             )
         } 

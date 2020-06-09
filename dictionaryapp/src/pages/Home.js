@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
 import DefinitionCard from '../components/DefinitionCard';
@@ -19,7 +20,8 @@ class Home extends Component {
         isSignedIn: false,
         userInfo: '',
         badSearch: false,
-        wordOfTheDay: {}
+        wordOfTheDay: {},
+        isVisible: false,
     }
 
     static propTypes = {
@@ -54,15 +56,15 @@ class Home extends Component {
     }
 
     handleSearch = (query) => {
-        this.setState({ isLoading: true, badSearch: false })
+        this.setState({ isVisible: false, isLoading: true, badSearch: false })
         fetch("https://owlbot.info/api/v4/dictionary/" + query, {
         headers: {
             Authorization: `Token ${process.env.REACT_APP_OWLBOT_API}`
         }
         }).then(res => res.status > 400 ? this.setState({ badSearch: true, isLoading: false }) : res.json())
         .then(data => {
-            console.log(data);
             this.setState({ isLoading: false, data: data.definitions, word: data.word, pronunciation: data.pronunciation });
+            setTimeout(() => { this.setState({ isVisible: true })}, 300)
         })
         .catch(err => console.log(err))
     }
@@ -115,6 +117,8 @@ class Home extends Component {
                                     def={definition}
                                     word={this.state.word}
                                     theme={this.props.theme}
+                                    index={i}
+                                    isVisible={this.state.isVisible}
                                     pronunciation={this.state.pronunciation}
                                 />
                             )
@@ -123,6 +127,7 @@ class Home extends Component {
                     </FlexContainer>
                 </Container>
                 {this.state.isLoading ? <Loading /> : <WordOfDay nightMode={this.props.nightMode} word={this.state.wordOfTheDay} />}
+                <Footer/>
             </div>
         )
     }

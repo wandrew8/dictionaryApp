@@ -7,6 +7,7 @@ import CollectionContainer from '../components/CollectionContainer';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
+import Footer from '../components/Footer';
 import { withRouter } from 'react-router';
 import FirebaseAuth from '../components/FirebaseAuth';
 
@@ -33,11 +34,9 @@ class Collection extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
-                //Redirects to home page if not logged in 
                 if(!user){
                     console.log("user not logged in")
                     this.setState({ isSignedIn: false, isLoading: false, showModal: true })
-                    // this.props.history.push('/');
                 } else {
                     this.getUserCollection(this.state.userInfo.uid)
                 }
@@ -47,7 +46,6 @@ class Collection extends Component {
 
 
     getUserCollection = uid => {
-        console.log(uid)
         db.collection('users')
         .doc(uid)
         .collection('wordCollection')
@@ -125,6 +123,7 @@ class Collection extends Component {
                         <ActivityNavigation practice={false}/>
                         {this.state.isLoading ? <Loading /> : null }
                         {this.state.userCollection.length > 0 ? <CollectionContainer getUserCollection={this.getUserCollection} showAddWordForm={true} removeItem={this.removeItem} showRemove={true} collection={this.state.userCollection} uid={this.state.userInfo.uid} /> : <p>You have no words in your collection</p>}
+                        <Footer />
                     </React.Fragment>
             )
         } else {
@@ -144,6 +143,7 @@ class Collection extends Component {
                         <p>You must have an account in order to create a word collection</p>
                         <FirebaseAuth />
                     </Modal>
+                    <Footer />
                 </React.Fragment>
             )
 
