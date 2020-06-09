@@ -24,6 +24,13 @@ export const Section = styled.section`
     align-items: center;
     padding: ${props => props.searched ? "0rem" : "2rem 0rem"};
     transform: ${props => props.searched ? "translate(0px, 0px)" : "none"};
+    h1 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+    }
+    .subtext {
+        margin: 3rem 0rem;
+    }
 `;
 
 

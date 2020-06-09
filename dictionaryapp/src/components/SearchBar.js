@@ -23,6 +23,9 @@ export default function SearchBar(props) {
     return (
         <Section searched={isWordSearched}>
             <div>
+                {isWordSearched ? null : <div>
+                    <h1 className="title">Dictionary Search</h1>
+                </div>}
                 <Container searched={isWordSearched}>
                     <SearchContainer searched={isWordSearched} >
                         <Image 
@@ -43,10 +46,9 @@ export default function SearchBar(props) {
                         </StyledForm>
                     </SearchContainer>
                 </Container>
-                {isWordSearched ? null : <div>
-                    <h1>Search the Dictionary for Words</h1>
-                    <p>Add them to your collection and review them as interactive flashcards</p>
-                    <p>Test your vocabulary skills be taking vacabulary tests</p>
+                {isWordSearched ? null : <div className="subtext">
+                    <p>Add words to your collection and review them as interactive flashcards</p>
+                    <p>Test your vocabulary skills by taking vocabulary tests</p>
                 </div>}
             </div>
         </Section>

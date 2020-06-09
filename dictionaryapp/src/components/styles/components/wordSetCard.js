@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { variables } from '../variables';
 
 export const Container = styled.div`
-    min-height: calc(100vh - 100px);
+    height: 250px;
     a {
         text-decoration: none;
         color: ${props =>

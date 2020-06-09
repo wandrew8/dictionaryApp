@@ -14,7 +14,7 @@ export default function ShowResults(props) {
                    const answer = answers[i] ? answers[i].toLowerCase() : answers[i];
                    if (word.toLowerCase() === answer) {
                        return (
-                           <div key={i}>
+                           <div showResults={showResults} className="resultsAnswer" key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Correct</p>
@@ -25,7 +25,7 @@ export default function ShowResults(props) {
                        )
                    } else {
                         return (
-                            <div key={i}>
+                            <div className="resultsAnswer" showResults={showResults} key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Incorrect</p>

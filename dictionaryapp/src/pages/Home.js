@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import Navigation from '../components/Navigation';
+import PracticeTests from '../components/PracticeTests';
 import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 import Header from '../components/Header';
@@ -127,6 +128,7 @@ class Home extends Component {
                     </FlexContainer>
                 </Container>
                 {this.state.isLoading ? <Loading /> : <WordOfDay nightMode={this.props.nightMode} word={this.state.wordOfTheDay} />}
+                <PracticeTests/>
                 <Footer/>
             </div>
         )

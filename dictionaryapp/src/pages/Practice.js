@@ -12,6 +12,8 @@ import { variables } from '../components/styles/variables';
 
 const Container = styled.div`
     display: grid;
+    min-height: calc(100vh - 100px);
+    grid-template-rows: repeat(auto-fit, 250px);
     grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
     justify-content: center;
     grid-gap: 1.5rem;
