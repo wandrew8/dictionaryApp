@@ -43,13 +43,19 @@ props.theme.nightMode === "light" ? variables[props.theme.theme].white : variabl
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
-
+    @media only screen and (max-width: ${variables.small}) {
+        grid-template-columns: 1fr;
+    }
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 2rem 0rem 0rem 2rem;
+        @media only screen and (max-width: ${variables.small}) {
+        height: 60px;
+        border-radius: 2rem 2rem 0rem 0rem;
 
+    }
     }
 }
 .message {

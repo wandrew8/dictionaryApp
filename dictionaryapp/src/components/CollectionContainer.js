@@ -19,7 +19,7 @@ export default function CollectionContainer(props) {
         setShowForm(false);
     };
 
-    const { getUserCollection, collection, removeItem, showRemove, uid, showAddWordForm } = props;
+    const { getUserCollection, collection, removeItem, isVisible, showRemove, uid, showAddWordForm } = props;
     return (
         <div style={{ marginBottom: "5rem", width: "100%", display: "flex", justifyContent: "center" }}>
             {showAddWordForm ? <AddWordForm 
@@ -37,9 +37,9 @@ export default function CollectionContainer(props) {
                     className="addicon" 
                     icon={faPlusSquare} /> : null }
                 <ul style={{ padding: "0" }}>
-                {collection.map((word, i) => {
+                {collection.map((word, index) => {
                     return(
-                        <SingleDefinition key={word.data().word + i} >
+                        <SingleDefinition index={index} isVisible={isVisible} key={word.data().word + index} >
                             <div className="word">
                                 <h2>{word.data().word}<sup>{word.data().type}</sup></h2>
                             </div>
@@ -70,4 +70,5 @@ CollectionContainer.propTypes = {
     uid: PropTypes.string,
     showAddWordForm: PropTypes.bool,
     getUserCollection: PropTypes.func,
+    isVisible: PropTypes.bool,
 }

@@ -6,7 +6,7 @@ export const Container = styled.div`
     visibility: ${props => props.showResults ? "visible" : "hidden"};
     transition: 400ms ease-in;
     text-align: left;
-    margin: ${props => props.showResults ? "-8px" : "0px"};;
+    margin: 0px;
     padding: ${props => props.showResults ? "2rem 3rem" : "0rem 3rem"};
     .resultsAnswer {
         height: ${props => props.showResults ? "100%" : "0px"}; 

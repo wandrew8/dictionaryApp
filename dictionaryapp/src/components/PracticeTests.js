@@ -8,7 +8,7 @@ import { variables } from './styles/variables';
 const db = firebase.firestore();
 
 const Section = styled.section`
-    border-radius: 2rem 2rem 0rem 0rem;
+    padding: 0rem 2rem;
     .title {
         font-size: 2.5rem;
         text-transform: uppercase;

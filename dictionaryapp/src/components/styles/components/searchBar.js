@@ -27,9 +27,13 @@ export const Section = styled.section`
     h1 {
         font-size: 2.5rem;
         text-transform: uppercase;
+        @media only screen and (max-width: ${variables.small}) {
+            font-size: 2rem;
+            margin: 0rem 1rem 2rem 1rem;
+        }
     }
     .subtext {
-        margin: 3rem 0rem;
+        margin: 3rem 2rem;
     }
 `;
 
@@ -73,6 +77,7 @@ export const StyledForm = styled.form`
     max-height: ${props => props.searched ? "50px" : "200px"};
     background-color: ${props =>
     props.searched ? "none" : variables[props.theme.theme].white };
+    
 `;
 
 export const StyledInput = styled.input`
@@ -85,5 +90,7 @@ export const StyledInput = styled.input`
     background: ${props => variables[props.theme.theme].white};
     border-radius: 0.5rem;
     border: solid 2px ${props => variables[props.theme.theme].primary};
-
+    @media only screen and (max-width: ${variables.small}) {
+       width: 130px;
+    }
 `;

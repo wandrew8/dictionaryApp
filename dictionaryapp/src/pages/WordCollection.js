@@ -19,6 +19,7 @@ class WordCollection extends Component {
         isLoading: true,
         isShowing: true,
         showModal: true,
+        isVisible: false,
     }
 
     static propTypes = {
@@ -42,6 +43,7 @@ class WordCollection extends Component {
     }
 
     getWordsFromCollection = () => {
+        this.setState({ isVisible: false })
         const id = this.props.match.params.id
         db.collection('wordSet')
         .doc(id)
@@ -52,8 +54,8 @@ class WordCollection extends Component {
             snapshot.docs.map(doc => {
                 collection.push(doc);
             })
-            console.log(collection)
-            this.setState({ wordCollection: collection, isLoading: false })
+            this.setState({ wordCollection: collection, isLoading: false });
+            setTimeout(() => { this.setState({ isVisible: true })}, 300)
         })
         .catch(err => console.log(err))
     }
@@ -108,7 +110,12 @@ class WordCollection extends Component {
                     />
                     <ActivityNavigation practice={true} id={id}/>
                     {this.state.isLoading ? <Loading /> : null }
-                    {this.state.wordCollection.length > 0 ? <CollectionContainer showAddWordForm={false} showRemove={false} collection={this.state.wordCollection} /> : <p>Oops, there are no words in this collection</p>}
+                    {this.state.wordCollection.length > 0 ? <CollectionContainer 
+                        showAddWordForm={false} 
+                        isVisible={this.state.isVisible}
+                        showRemove={false} 
+                        collection={this.state.wordCollection} /> 
+                        : <p>Oops, there are no words in this collection</p>}
                     <Footer/>
                 </React.Fragment>
             )

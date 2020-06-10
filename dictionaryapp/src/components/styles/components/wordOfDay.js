@@ -9,11 +9,15 @@ justify-content: center;
 padding: 3rem 0rem;
 border-radius: 5rem 5rem 0rem 0rem;
 background-color: ${props => props.nightMode === 'light' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"};
+@media only screen and (max-width: ${variables.small}) {
+        border-radius: 0rem;
+    }
 .wordDay {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: 90%;
     max-width: 1200px;
+    
 }
 .heading {
     background-color: ${props =>
@@ -32,6 +36,10 @@ background-color: ${props => props.nightMode === 'light' ? "rgba(255,255,255,0.1
         text-transform: uppercase;
         margin: 0;
         padding: 0;
+        @media only screen and (max-width: ${variables.small}) {
+            font-size: 1.5rem;
+    
+    }
     }
 }
 .top {
@@ -45,6 +53,7 @@ background-color: ${props => props.nightMode === 'light' ? "rgba(255,255,255,0.1
     height: 100%;
     background-color: ${props =>
     props.theme.nightMode === "light" ? variables[props.theme.theme].dark : variables[props.theme.theme].white };
+    
 }
 .bottom {
     border: solid 1px ${props =>

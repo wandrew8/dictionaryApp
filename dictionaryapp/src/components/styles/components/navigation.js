@@ -31,8 +31,12 @@ background: ${props => variables[props.theme.theme].primary};
     padding-bottom: 5rem;
     height: calc(100vh - 50px);
     overflow: auto;
+    visibility: visible;
+    
 }
 .open {
+    visibility: hidden;
+    display: none;
     transform: translateX(300px);
 }
 .selected {

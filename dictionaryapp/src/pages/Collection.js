@@ -21,6 +21,7 @@ class Collection extends Component {
         isLoading: true,
         isShowing: true,
         showModal: true,
+        isVisible: false,
     }
 
     static propTypes = {
@@ -46,6 +47,7 @@ class Collection extends Component {
 
 
     getUserCollection = uid => {
+        this.setState({ isVisible: false });
         db.collection('users')
         .doc(uid)
         .collection('wordCollection')
@@ -58,6 +60,8 @@ class Collection extends Component {
             })
             console.log(collection)
             this.setState({ userCollection: collection, isLoading: false })
+            setTimeout(() => { this.setState({ isVisible: true })}, 300)
+
         })
         .catch(err => console.log(err))
     }
@@ -122,7 +126,14 @@ class Collection extends Component {
                         />
                         <ActivityNavigation practice={false}/>
                         {this.state.isLoading ? <Loading /> : null }
-                        {this.state.userCollection.length > 0 ? <CollectionContainer getUserCollection={this.getUserCollection} showAddWordForm={true} removeItem={this.removeItem} showRemove={true} collection={this.state.userCollection} uid={this.state.userInfo.uid} /> : <p>You have no words in your collection</p>}
+                        {this.state.userCollection.length > 0 
+                        ? <CollectionContainer 
+                            isVisible={this.state.isVisible} 
+                            getUserCollection={this.getUserCollection} 
+                            showAddWordForm={true} removeItem={this.removeItem} 
+                            showRemove={true} collection={this.state.userCollection} 
+                            uid={this.state.userInfo.uid} /> 
+                            : <p>You have no words in your collection</p>}
                         <Footer />
                     </React.Fragment>
             )

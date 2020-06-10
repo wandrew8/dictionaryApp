@@ -41,6 +41,7 @@ export default function SearchBar(props) {
                                 type="text" 
                                 placeholder="Search for a word"
                                 value={query}
+                                required
                                 onChange={handleInputChange}/>
                             <Button inverse={true} type="submit">Search</Button>
                         </StyledForm>
