@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/dictionaryApp/static/js/main.17c5635f.chunk.js",
-    "main.js.map": "/dictionaryApp/static/js/main.17c5635f.chunk.js.map",
+    "main.js": "/dictionaryApp/static/js/main.d5aa0bc4.chunk.js",
+    "main.js.map": "/dictionaryApp/static/js/main.d5aa0bc4.chunk.js.map",
     "runtime-main.js": "/dictionaryApp/static/js/runtime-main.ebccf375.js",
     "runtime-main.js.map": "/dictionaryApp/static/js/runtime-main.ebccf375.js.map",
     "static/js/2.0a03cc47.chunk.js": "/dictionaryApp/static/js/2.0a03cc47.chunk.js",
     "static/js/2.0a03cc47.chunk.js.map": "/dictionaryApp/static/js/2.0a03cc47.chunk.js.map",
     "index.html": "/dictionaryApp/index.html",
-    "precache-manifest.f797ae4a9ca66ecf2158f5eb6f121325.js": "/dictionaryApp/precache-manifest.f797ae4a9ca66ecf2158f5eb6f121325.js",
+    "precache-manifest.0bb3ee0382b4e3a1df9c846048fb27b2.js": "/dictionaryApp/precache-manifest.0bb3ee0382b4e3a1df9c846048fb27b2.js",
     "service-worker.js": "/dictionaryApp/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.0a03cc47.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.0a03cc47.chunk.js.LICENSE.txt",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.ebccf375.js",
     "static/js/2.0a03cc47.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.17c5635f.chunk.js"
+    "static/js/main.d5aa0bc4.chunk.js"
   ]
 }
