@@ -1,6 +1,6 @@
 # Dictionary Application
 
-This is dictionary search and vocabulary building application. It allows users to search for words' definitions, save words to their collections, review words as flashcards, add their own words to their collection, take dynamically generated tests, and more. 
+This is a dictionary search and vocabulary building application. It allows users to search for words' definitions, save words to their collections, review words as flashcards, add their own words to their collection, take dynamically generated tests, and more. 
 
 This handy application has a simple and clean design and smooth UI for individuals looking to improve their vocabulary. The UX is enhanced with additional features such as light/dark mode and other theming options which allows users to customize the app to suit their personalities.  
 
