@@ -2,18 +2,27 @@ import styled from 'styled-components';
 import { variables } from '../variables';
 
 export const Input = styled.div`
-display: grid;
-grid-template-columns: 1fr 25px;
-position: relative;
-input {
-    display: block;
-}
-.icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: lightgray;
-}
+    display: grid;
+    grid-template-columns: 1fr 25px;
+    position: relative;
+    opacity: ${props => props.isVisible ? '1' : '0'};
+    transform: ${props => props.isVisible
+                ? 'translateY(0%)'
+                : 'translateY(10%)'};	
+    transition-timing-function: ease-in-out; 
+    transition-duration: 300ms;
+    transition-property: transform, opacity;
+    transition-delay: ${props => 200 * props.index}ms, ${props => 200 * props.index}ms;
+
+    input {
+        display: block;
+    }
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: lightgray;
+    }
 `;
 
 export const CongratulationsContainer = styled.div`

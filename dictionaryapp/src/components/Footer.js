@@ -5,7 +5,7 @@ import { withTheme } from 'styled-components';
 
 function Footer(props) {
     const { theme } = props;
-    console.log(theme.theme)
+    
     return (
         <StyledFooter>
                 <img src={require(`../images/${theme.theme}.svg`)} alt="" />
@@ -25,7 +25,7 @@ function Footer(props) {
                         </div>
                     </div>
                 </div>
-                <div className="bottom">&copy; Copyright 2020: <a href="http://www.andrewjohnweiss.com" target="_blank">Andrew John Weiss</a></div>
+                <div className="bottom">&copy; Copyright {new Date().getFullYear()}: <a href="http://www.andrewjohnweiss.com" target="_blank">Andrew John Weiss</a></div>
         </StyledFooter>
     )
 }

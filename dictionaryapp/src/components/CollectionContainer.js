@@ -9,7 +9,6 @@ import ReactTooltip from "react-tooltip";
 
 export default function CollectionContainer(props) {
     const [ showForm, setShowForm ] = useState(false);
-    const [ wordCollection, setWordCollection ] = useState([]);
 
     const toggleForm = () => {
         setShowForm(!showForm);

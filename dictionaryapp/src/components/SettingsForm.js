@@ -20,7 +20,7 @@ export default function SettingsForm(props) {
         return () => {
             document.removeEventListener('mousedown', handleClick, false);
         }
-    }, []);
+    });
     
     const handleClick = (e) => {
         if(!formRef.current.contains(e.target)) {
@@ -33,12 +33,10 @@ export default function SettingsForm(props) {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         setValues(values => ({ ...values, [name]: value }));
-
     }
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("Hey, this form is submitted");
         props.closeForm();
         const settings = {
             testLength: parseInt(values.testLength) || 5,
@@ -46,7 +44,6 @@ export default function SettingsForm(props) {
             showTimer: values.showTimer || false,
             timerLength: parseInt(values.timerLength) || 0
         }
-        console.log(settings);
         props.changeSettings(settings);
     }
 

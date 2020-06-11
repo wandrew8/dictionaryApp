@@ -10,19 +10,6 @@ import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { variables } from '../components/styles/variables';
 
-const Container = styled.div`
-    display: grid;
-    min-height: calc(100vh - 100px);
-    grid-template-rows: repeat(auto-fit, 250px);
-    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-    justify-content: center;
-    grid-gap: 1.5rem;
-    margin: 2rem 3rem;
-    @media only screen and (max-width: ${variables.small}) {
-        margin: 2rem 0.5rem;
-    }
-`;
-
 const db = firebase.firestore();
 
 class Practice extends Component {
@@ -46,9 +33,7 @@ class Practice extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
-                //Redirects to home page if not logged in 
                 if(!user){
-                    console.log("user not logged in")
                     this.setState({ isSignedIn: false })
                     this.getWordSets();
 
@@ -64,10 +49,8 @@ class Practice extends Component {
         .then(snapshot => {
             const collection = [];
             snapshot.docs.map(doc => {
-                console.log(doc.id)
                 collection.push(doc);
             })
-            console.log(collection);
             this.setState({ wordSets: collection, isLoading: false })
         })
     }
@@ -130,4 +113,17 @@ class Practice extends Component {
 }
 
 export default withRouter(Practice);
+
+const Container = styled.div`
+    display: grid;
+    min-height: calc(100vh - 100px);
+    grid-template-rows: repeat(auto-fit, 250px);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    justify-content: center;
+    grid-gap: 1.5rem;
+    margin: 2rem 3rem;
+    @media only screen and (max-width: ${variables.small}) {
+        margin: 2rem 0.5rem;
+    }
+`;
 

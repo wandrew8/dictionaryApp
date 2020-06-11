@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container } from './styles/components/showResults';
 
-
 export default function ShowResults(props) {
         const { wordCollection, answers, showResults } = props;
         return (
@@ -14,7 +13,7 @@ export default function ShowResults(props) {
                    const answer = answers[i] ? answers[i].toLowerCase() : answers[i];
                    if (word.toLowerCase() === answer) {
                        return (
-                           <div showResults={showResults} className="resultsAnswer" key={i}>
+                           <div className="resultsAnswer" key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Correct</p>
@@ -25,7 +24,7 @@ export default function ShowResults(props) {
                        )
                    } else {
                         return (
-                            <div className="resultsAnswer" showResults={showResults} key={i}>
+                            <div className="resultsAnswer" key={i}>
                                 <p>{i + 1}. {definition} ({type})</p>
                                 <div className="answers">
                                     <p className="fade">Incorrect</p>

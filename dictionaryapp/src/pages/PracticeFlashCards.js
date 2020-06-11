@@ -7,7 +7,7 @@ import Flashcard from '../components/Flashcard';
 import Footer from '../components/Footer';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 const db = firebase.firestore();
 
@@ -50,10 +50,8 @@ class Review extends Component {
         .then(snapshot => {
             const collection = []
             snapshot.docs.map(doc => {
-                console.log(doc.id)
                 collection.push(doc);
             })
-            console.log(collection)
             this.setState({ wordCollection: collection, isLoading: false, totalNumber: collection.length })
         })
         .catch(err => console.log(err))

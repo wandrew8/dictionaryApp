@@ -35,7 +35,6 @@ class Home extends Component {
     componentDidMount() {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             user => {
-                console.log(user)
                 this.setState({ isSignedIn: !!user, userInfo: firebase.auth().currentUser })
                 if(!user){
                     this.setState({ isSignedIn: false });
@@ -76,7 +75,6 @@ class Home extends Component {
         const month = now.getMonth() + 1;
         const day = now.getDate();
         const todayDate = `${year}-${month}-${day}`
-        console.log(todayDate)
         fetch(`https://api.wordnik.com/v4/words.json/wordOfTheDay?date=${todayDate}&api_key=${process.env.REACT_APP_WORDNIK_API}`, {
             headers: {
                 Accept: "application/json"
@@ -84,7 +82,6 @@ class Home extends Component {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             this.setState({ wordOfTheDay: data, isLoading: false })
         })
         .catch(err => console.log(err));
@@ -135,6 +132,7 @@ class Home extends Component {
     }
 }
 
+//Had to wrap all my pages in the withRouter to get access to this.props.history for redirecting
 export default withRouter(Home);
 
 const FlexContainer = styled.div`

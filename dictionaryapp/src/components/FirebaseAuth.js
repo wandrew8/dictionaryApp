@@ -6,9 +6,9 @@ export default class Home extends React.Component {
     uiConfig = {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
-        // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+        // Redirects once sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
         signInSuccessUrl: '/dictionaryApp#/',
-        // We will display Google and Facebook as auth providers.
+        // Displays Email, Google and Github as auth providers.
         signInOptions: [
           firebase.auth.EmailAuthProvider.PROVIDER_ID,
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,

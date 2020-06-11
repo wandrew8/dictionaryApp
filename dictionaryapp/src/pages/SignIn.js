@@ -5,6 +5,29 @@ import PropTypes from 'prop-types';
 import { variables } from '../components/styles/variables';
 import styled from 'styled-components';
 
+export default class SignIn extends Component {
+    static propTypes = {
+        nightMode: PropTypes.string,
+        toggleNightMode: PropTypes.func,
+        toggleTheme: PropTypes.func,
+        signout: PropTypes.func,
+        currentTheme: PropTypes.string
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Background />
+                <SecondBackground />
+                <ThirdBackground />
+                    <Modal showModal={true} showClose={false} heading="Create an Account or Log In" >
+                        <FirebaseAuth />
+                    </Modal>
+            </React.Fragment>
+        )
+    }
+}
+
 const Background = styled.div` 
     background-color: ${props =>
     variables[props.theme.theme].primary};
@@ -36,26 +59,3 @@ const ThirdBackground = styled.div`
     top: 50px;
     z-index: 2;
 `;
-
-export default class SignIn extends Component {
-    static propTypes = {
-        nightMode: PropTypes.string,
-        toggleNightMode: PropTypes.func,
-        toggleTheme: PropTypes.func,
-        signout: PropTypes.func,
-        currentTheme: PropTypes.string
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <Background />
-                <SecondBackground />
-                <ThirdBackground />
-                    <Modal showModal={true} showClose={false} heading="Create an Account or Log In" >
-                        <FirebaseAuth />
-                    </Modal>
-            </React.Fragment>
-        )
-    }
-}

@@ -66,7 +66,10 @@ background-color: ${props => props.nightMode === 'light' ? "rgba(255,255,255,0.1
 h3 {
     font-size: 3rem;
     padding: 0rem 3rem;
-
+    @media only screen and (max-width: ${variables.small}) {
+        font-size: 2rem;
+        padding: 0rem 1rem;
+    }
 }
 .definition {
     padding: 0rem 3rem;

@@ -13,11 +13,9 @@ export default function Modal(props) {
         return () => {
             document.removeEventListener('mousedown', handleClick, false);
         }
-    }, []);
+    });
 
     const handleClick = (e) => {
-        console.log(modalRef);
-        console.log(modalRef.current)
         if(!modalRef.current.contains(e.target)) {
             closeModal();            
         }

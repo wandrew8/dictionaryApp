@@ -42,7 +42,7 @@ export default function Navigation(props) {
     }
 
 
-    const { nightMode, toggleNightMode, toggleTheme, signout, currentTheme, isSignedIn, userImage } = props
+    const { nightMode, toggleNightMode, signout, currentTheme, isSignedIn, userImage } = props
     return (
         <NavBar ref={navRef}>
             <Logo theme={currentTheme} />

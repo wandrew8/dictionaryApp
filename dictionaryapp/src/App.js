@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './components/styles/GlobalStyle';
@@ -13,115 +13,112 @@ import Practice from './pages/Practice';
 import Collection from './pages/Collection';
 import SignIn from './pages/SignIn';
 
-class App extends React.Component {
-  state = {
-    nightMode: storage.getItem("nightMode") ? storage.getItem("nightMode") : "light",
-    theme: storage.getItem("theme") ? storage.getItem("theme") : "mohaka",
-  }
+function App() {
+  const [ nightMode, setNightMode ] = useState(storage.getItem("nightMode") ? storage.getItem("nightMode") : "light");
+  const [ theme, setTheme ] = useState(storage.getItem("theme") ? storage.getItem("theme") : "mataura");
 
-  toggleNightMode = () => {
-    if(this.state.nightMode === "light"){
-      this.setState({ nightMode: "dark" })
+  const toggleNightMode = () => {
+    if(nightMode === "light"){
+      setNightMode("dark");
       storage.setItem("nightMode", "dark");
     } else {
-      this.setState({ nightMode: "light" });
+      setNightMode("light");
       storage.setItem("nightMode", "light");
     }
   }
 
-  toggleTheme = (theme) => {
-    this.setState({ theme })
+  const toggleTheme = (theme) => {
+    setTheme(theme);
     storage.setItem("theme", theme)
   }
 
-  getInitalTheme = () => {
+  const getInitalTheme = () => {
     const savedNightMode = storage.getItem("nightMode");
     return savedNightMode ? JSON.parse(savedNightMode) : false;
   }
 
-  render() {
-      return (
-        <Router basename="/dictionaryApp/">
-          <Switch>
-              <ThemeProvider theme={{ nightMode: this.state.nightMode, theme: this.state.theme }}>
-                <Route exact path="/">
-                  <Home 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme}
-                     />
-                </Route>
-                <Route path="/collection">
-                  <Collection
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme}
+    return (
+      <Router basename="/dictionaryApp/">
+        <Switch>
+            <ThemeProvider theme={{ nightMode: nightMode, theme: theme }}>
+              <Route exact path="/">
+                <Home 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme}
                     />
-                </Route>
-                <Route path="/create-account">
-                  <SignIn 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route path="/review">
-                  <Review 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route path="/test">
-                  <Test 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route exact path="/practice">
-                  <Practice 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route exact path="/practice/:id">
-                  <WordCollection 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route exact path="/practice-test/:id">
-                  <PracticeTest 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <Route exact path="/practice-review/:id">
-                  <PracticeFlashCards 
-                    toggleNightMode={this.toggleNightMode} 
-                    nightMode={this.state.nightMode}
-                    toggleTheme={this.toggleTheme}
-                    theme={this.state.theme} 
-                    />
-                </Route>
-                <GlobalStyle />
-              </ThemeProvider>
-          </Switch>
-      </Router>
-    );
-  }
+              </Route>
+              <Route path="/collection">
+                <Collection
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme}
+                  />
+              </Route>
+              <Route path="/create-account">
+                <SignIn 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route path="/review">
+                <Review 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route path="/test">
+                <Test 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route exact path="/practice">
+                <Practice 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route exact path="/practice/:id">
+                <WordCollection 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route exact path="/practice-test/:id">
+                <PracticeTest 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <Route exact path="/practice-review/:id">
+                <PracticeFlashCards 
+                  toggleNightMode={toggleNightMode} 
+                  nightMode={nightMode}
+                  toggleTheme={toggleTheme}
+                  theme={theme} 
+                  />
+              </Route>
+              <GlobalStyle />
+            </ThemeProvider>
+        </Switch>
+    </Router>
+  );
+  
 }
 
 export default App;

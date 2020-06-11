@@ -1,73 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import WordSetCard from './WordSetCard';
 import Loading from '../components/Loading';
-import styled from 'styled-components';
 import firebase from 'firebase/app';
-import { variables } from './styles/variables';
+import { Section } from './styles/components/practiceTests';
 
 const db = firebase.firestore();
 
-const Section = styled.section`
-    padding: 0rem 2rem;
-    .title {
-        font-size: 2.5rem;
-        text-transform: uppercase;
-    }
-    .grid {
-        display: grid;
-        grid-template-rows: repeat(auto-fit, 250px);
-        grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-        justify-content: center;
-        grid-gap: 1.5rem;
-        margin: 3rem 3rem 10rem 3rem;
-        @media only screen and (max-width: ${variables.small}) {
-            margin: 2rem 0.5rem;
-        }
-    }
-`;
 
-export default class PracticeTests extends React.Component {
-    state = {
-        isLoading: true,
-        wordSets: [],
-    }
+export default function PracticeTests() {
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ wordSets, setWordSets ] = useState([]);
 
-    componentDidMount() {
-        this.getWordSets();
-    }
+    useEffect(() => {
+        getWordSets();
+    }, [])
 
-    getWordSets = () => {
+    const getWordSets = () => {
         db.collection('wordSet')
         .get()
         .then(snapshot => {
             const collection = [];
             snapshot.docs.map(doc => {
-                console.log(doc.id)
-                collection.push(doc);
+                return collection.push(doc);
             })
-            console.log(collection);
-            this.setState({ wordSets: collection, isLoading: false })
+            setWordSets(collection);
+            setIsLoading(false);
         })
     }
 
-    render() {
-        return (
-            <Section>
-                <h2 className="title">Practice Your Vocabulary</h2>
-                <p>Test your skills by reviewing flashcards and taking tests in any of the categories below</p>
-                <div className="grid">
-                    {this.state.isLoading 
-                        ? <Loading/> 
-                        : this.state.wordSets.length > 0 
-                        ? this.state.wordSets.map(set => {
-                            return <WordSetCard 
-                                key={set.id} 
-                                wordSet={set.data()} 
-                                id={set.id} />}) 
-                            : <p>Oh no! We couldn't find any word sets to practice</p>}
-    
-                </div>
-            </Section>
-        )
-    }
+    return (
+        <Section>
+            <h2 className="title">Practice Your Vocabulary</h2>
+            <p>Test your skills by reviewing flashcards and taking tests in any of the categories below</p>
+            <div className="grid">
+                {isLoading 
+                    ? <Loading/> 
+                    : wordSets.length > 0 
+                    ? wordSets.map(set => {
+                        return <WordSetCard 
+                            key={set.id} 
+                            wordSet={set.data()} 
+                            id={set.id} />}) 
+                        : <p>Oh no! We couldn't find any word sets to practice</p>}
+
+            </div>
+        </Section>
+    )
 }

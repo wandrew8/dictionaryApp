@@ -3,7 +3,6 @@ import FlashcardControls from './FlashcardControls';
 import PropTypes from 'prop-types';
 import { Container, FlashCard } from './styles/components/flashcard';
 
-
 export default function Flashcard(props) {
     const [showBack, setShowBack] = useState(false);
     const [showWordFirst, setShowWordFirst] = useState(true);
@@ -36,8 +35,7 @@ export default function Flashcard(props) {
                     toggleOrder={toggleOrder}/>
             </div>
         </Container>
-    )
-    
+    )   
 }
 
 

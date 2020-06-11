@@ -31,13 +31,11 @@ background: ${props => variables[props.theme.theme].primary};
     padding-bottom: 5rem;
     height: calc(100vh - 50px);
     overflow: auto;
-    visibility: visible;
-    
+    opacity: 1;
 }
 .open {
-    visibility: hidden;
-    display: none;
-    transform: translateX(300px);
+    width: 0px;
+    opacity: 0;
 }
 .selected {
     background-color: lightgrey;

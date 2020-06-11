@@ -6,6 +6,7 @@ import { Container } from './styles/components/wordOfDay';
 export default function WordOfDay(props) {
     const { word, note, examples } = props.word;
     const { text, partOfSpeech } = props.word.definitions[0];    
+    
     return (
         <Container nightMode={props.nightMode}>
             <div className="wordDay">

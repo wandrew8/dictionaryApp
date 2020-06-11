@@ -22,7 +22,7 @@ export default function AddWordForm(props) {
         return () => {
             document.removeEventListener('mousedown', handleClick, false);
         }
-    }, []);
+    });
     
     const handleClick = (e) => {
         if(!formRef.current.contains(e.target)) {
