@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/dictionaryApp/static/js/main.d5aa0bc4.chunk.js",
-    "main.js.map": "/dictionaryApp/static/js/main.d5aa0bc4.chunk.js.map",
+    "main.js": "/dictionaryApp/static/js/main.b28b1e95.chunk.js",
+    "main.js.map": "/dictionaryApp/static/js/main.b28b1e95.chunk.js.map",
     "runtime-main.js": "/dictionaryApp/static/js/runtime-main.ebccf375.js",
     "runtime-main.js.map": "/dictionaryApp/static/js/runtime-main.ebccf375.js.map",
-    "static/js/2.0a03cc47.chunk.js": "/dictionaryApp/static/js/2.0a03cc47.chunk.js",
-    "static/js/2.0a03cc47.chunk.js.map": "/dictionaryApp/static/js/2.0a03cc47.chunk.js.map",
+    "static/js/2.92aa1179.chunk.js": "/dictionaryApp/static/js/2.92aa1179.chunk.js",
+    "static/js/2.92aa1179.chunk.js.map": "/dictionaryApp/static/js/2.92aa1179.chunk.js.map",
     "index.html": "/dictionaryApp/index.html",
-    "precache-manifest.0bb3ee0382b4e3a1df9c846048fb27b2.js": "/dictionaryApp/precache-manifest.0bb3ee0382b4e3a1df9c846048fb27b2.js",
+    "precache-manifest.5d9d52490860f2f743beb37a86780cf8.js": "/dictionaryApp/precache-manifest.5d9d52490860f2f743beb37a86780cf8.js",
     "service-worker.js": "/dictionaryApp/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/dictionaryApp/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.0a03cc47.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.0a03cc47.chunk.js.LICENSE.txt",
+    "static/js/2.92aa1179.chunk.js.LICENSE.txt": "/dictionaryApp/static/js/2.92aa1179.chunk.js.LICENSE.txt",
     "static/media/inn.svg": "/dictionaryApp/static/media/inn.64bd2963.svg",
     "static/media/mataura.svg": "/dictionaryApp/static/media/mataura.4afff881.svg",
     "static/media/mohaka.svg": "/dictionaryApp/static/media/mohaka.c27f4bb0.svg",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.ebccf375.js",
-    "static/js/2.0a03cc47.chunk.js",
+    "static/js/2.92aa1179.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.d5aa0bc4.chunk.js"
+    "static/js/main.b28b1e95.chunk.js"
   ]
 }
